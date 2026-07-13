@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   description:
     "Bespoke luxury travel experiences across Syria and beyond. Reisen wie es sein sollte.",
   icons: {
-    icon: assets.logoSlogan,
-    apple: assets.logoSlogan,
+    icon: assets.favicon,
+    apple: assets.favicon,
   },
 };
 
