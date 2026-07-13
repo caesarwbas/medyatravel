@@ -22,12 +22,14 @@ export default function HeroSection() {
   return (
     <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-brand">
       <Image
-        src={assets.backgrounds.primary}
-        alt="MEDYA TRAVEL luxury travel background"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center"
+  src={assets.backgrounds.primary}
+  alt="MEDYA TRAVEL luxury travel background"
+  fill
+  priority
+  quality={100}
+  sizes="100vw"
+  className="object-cover object-center"
+/>
       />
       <div className="absolute inset-0 bg-gradient-to-b from-brand/70 via-brand/50 to-brand" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#0D0D0D_80%)]" />
