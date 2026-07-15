@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { ImageResponse } from "next/og";
 
 export const size = {
@@ -6,6 +8,9 @@ export const size = {
 };
 
 export const contentType = "image/png";
+
+const logoUrl =
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1783941973/Gemini_Generated_Image_27jxkk27jxkk27jx_m7v3kj.png";
 
 export default function Icon() {
   return new ImageResponse(
@@ -17,52 +22,41 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#090b0d",
+          background:
+            "radial-gradient(circle at center, #2b2924 0%, #151513 65%, #080808 100%)",
         }}
       >
         <div
           style={{
-            width: 430,
-            height: 430,
+            width: "460px",
+            height: "460px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            position: "relative",
-            borderRadius: "50%",
-            border: "12px solid #c79c59",
-            background:
-              "radial-gradient(circle at 35% 30%, #27211a 0%, #111315 52%, #070809 100%)",
-            boxShadow: "0 0 55px rgba(199,156,89,0.34)",
+            borderRadius: "9999px",
+            overflow: "hidden",
+            border: "10px solid #b9985a",
+            boxShadow:
+              "0 0 55px rgba(185, 152, 90, 0.42), inset 0 0 30px rgba(0, 0, 0, 0.35)",
+            background: "#11110f",
           }}
         >
-          <div
+          <img
+            src={logoUrl}
+            alt="MEDYA TRAVEL"
+            width="460"
+            height="460"
             style={{
-              position: "absolute",
-              width: 290,
-              height: 150,
-              top: 104,
-              borderTop: "12px solid #c79c59",
-              borderRadius: "50%",
-              transform: "rotate(-12deg)",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
             }}
           />
-
-          <div
-            style={{
-              display: "flex",
-              color: "#c79c59",
-              fontSize: 240,
-              fontWeight: 600,
-              fontFamily: "serif",
-              lineHeight: 1,
-              marginTop: 35,
-            }}
-          >
-            M
-          </div>
         </div>
       </div>
     ),
-    size,
+    {
+      ...size,
+    },
   );
 }

@@ -16,13 +16,15 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://medyatravel.de"),
 
+  applicationName: "MEDYA TRAVEL",
+
   title: {
-    default: "MEDYA TRAVEL | Reisen nach Syrien",
+    default: "Syrien Reisen & Rundreisen | MEDYA TRAVEL Deutschland",
     template: "%s | MEDYA TRAVEL",
   },
 
   description:
-    "Kuratiere Reisen nach Syrien mit MEDYA TRAVEL. Kulturreisen, private Rundreisen, ausgewählte Hotels und authentische Begegnungen.",
+    "Entdecken Sie Syrien mit MEDYA TRAVEL: sorgfältig geplante Rundreisen, Kulturreisen, exklusive Hotels und individuelle Reiseprogramme ab Deutschland.",
 
   keywords: [
     "Syrien Reisen",
@@ -33,11 +35,34 @@ export const metadata: Metadata = {
     "Damaskus Reise",
     "Aleppo Reise",
     "Palmyra Reise",
+    "Syrien Reiseveranstalter",
     "MEDYA TRAVEL",
   ],
 
+  authors: [
+    {
+      name: "MEDYA TRAVEL",
+      url: "https://medyatravel.de",
+    },
+  ],
+
+  creator: "MEDYA TRAVEL",
+  publisher: "MEDYA TRAVEL",
+
   alternates: {
-    canonical: "https://medyatravel.de",
+    canonical: "/",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 
   openGraph: {
@@ -45,21 +70,19 @@ export const metadata: Metadata = {
     locale: "de_DE",
     url: "https://medyatravel.de",
     siteName: "MEDYA TRAVEL",
-    title: "MEDYA TRAVEL | Reisen nach Syrien",
+    title: "Syrien Reisen & Rundreisen | MEDYA TRAVEL Deutschland",
     description:
-      "Authentische und sorgfältig kuratierte Reisen durch Syrien für Reisende aus Deutschland.",
+      "Entdecken Sie Syrien mit MEDYA TRAVEL: Rundreisen, Kulturreisen und individuelle Reiseprogramme ab Deutschland.",
   },
 
-  robots: {
-    index: true,
-    follow: true,
+  twitter: {
+    card: "summary_large_image",
+    title: "Syrien Reisen & Rundreisen | MEDYA TRAVEL",
+    description:
+      "Rundreisen, Kulturreisen und individuelle Reiseprogramme nach Syrien.",
   },
 
-  icons: {
-    icon: "/icon",
-    shortcut: "/icon",
-    apple: "/apple-icon",
-  },
+  category: "travel",
 };
 
 export default function RootLayout({

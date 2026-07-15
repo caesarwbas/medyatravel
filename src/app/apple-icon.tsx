@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import { ImageResponse } from "next/og";
 
 export const size = {
@@ -6,6 +8,9 @@ export const size = {
 };
 
 export const contentType = "image/png";
+
+const logoUrl =
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1783941973/Gemini_Generated_Image_27jxkk27jxkk27jx_m7v3kj.png";
 
 export default function AppleIcon() {
   return new ImageResponse(
@@ -17,51 +22,39 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#090b0d",
+          background:
+            "radial-gradient(circle at center, #2b2924 0%, #151513 65%, #080808 100%)",
         }}
       >
         <div
           style={{
-            width: 154,
-            height: 154,
+            width: "164px",
+            height: "164px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            position: "relative",
-            borderRadius: "50%",
-            border: "5px solid #c79c59",
-            background:
-              "radial-gradient(circle at 35% 30%, #27211a 0%, #111315 52%, #070809 100%)",
+            borderRadius: "9999px",
+            overflow: "hidden",
+            border: "4px solid #b9985a",
+            background: "#11110f",
           }}
         >
-          <div
+          <img
+            src={logoUrl}
+            alt="MEDYA TRAVEL"
+            width="164"
+            height="164"
             style={{
-              position: "absolute",
-              width: 104,
-              height: 54,
-              top: 36,
-              borderTop: "4px solid #c79c59",
-              borderRadius: "50%",
-              transform: "rotate(-12deg)",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
             }}
           />
-
-          <div
-            style={{
-              display: "flex",
-              color: "#c79c59",
-              fontSize: 86,
-              fontWeight: 600,
-              fontFamily: "serif",
-              lineHeight: 1,
-              marginTop: 13,
-            }}
-          >
-            M
-          </div>
         </div>
       </div>
     ),
-    size,
+    {
+      ...size,
+    },
   );
 }
