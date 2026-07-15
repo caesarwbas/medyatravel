@@ -49,7 +49,7 @@ export default function Footer() {
               Contact us to begin planning your private Syrian expedition.
             </p>
             <a
-              href="mailto:info@medyatravel.com"
+              href="mailto:info@medyatravel.de"
               className="mt-4 inline-block border border-gold px-5 py-2.5 text-xs font-medium uppercase tracking-luxury text-gold transition-all hover:bg-gold hover:text-brand"
             >
               Get in Touch

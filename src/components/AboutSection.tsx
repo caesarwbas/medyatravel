@@ -10,7 +10,7 @@ export default function AboutSection() {
           {/* Founder Profile Image */}
           <div className="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-full border-2 border-gold/30 sm:max-w-md">
             <Image
-              src="/images/about-founder.jpg"
+              src={assets.profilePicture}
               alt="MEDYA TRAVEL founder profile"
               fill
               sizes="(max-width: 1024px) 384px, 448px"

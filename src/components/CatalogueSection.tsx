@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import { assets } from "@/data/assets";
 
 export default function CatalogueSection() {
   return (
     <section id="catalogue" className="relative overflow-hidden py-20 sm:py-24 lg:py-32">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/catalogue-bg.jpg')" }}
+        style={{ backgroundImage: `url('${assets.backgrounds.secondary}')` }}
       />
       <div className="absolute inset-0 bg-brand/85" />
 
@@ -43,7 +44,7 @@ export default function CatalogueSection() {
         <div className="mx-auto mt-12 flex max-w-lg flex-col items-center gap-6 rounded-sm border border-white/10 bg-charcoal/60 p-6 backdrop-blur-sm sm:mt-16 sm:flex-row sm:gap-8 sm:p-8">
           <div className="relative h-16 w-40 shrink-0 sm:h-20 sm:w-48">
             <Image
-              src="/images/partner-logo.png"
+              src={assets.partnerLogo}
               alt="Syrian travel partner logo"
               fill
               sizes="192px"
