@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
 
-const siteUrl = "https://medyatravel.de";
+const baseUrl = "https://medyatravel.de";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: siteUrl,
+      url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
