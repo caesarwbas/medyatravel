@@ -1,20 +1,22 @@
 import Image from "next/image";
-import type { Destination } from "@/types";
+import type { Destination, Locale } from "@/types";
 
 interface DestinationCardProps {
   destination: Destination;
   index: number;
+  locale: Locale;
 }
 
 export default function DestinationCard({
   destination,
   index,
+  locale,
 }: DestinationCardProps) {
   return (
     <article className="group relative aspect-[3/4] overflow-hidden bg-charcoal">
       <Image
         src={destination.image}
-        alt={destination.imageAlt}
+        alt={destination.imageAlt[locale]}
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -28,10 +30,10 @@ export default function DestinationCard({
           0{index + 1}
         </span>
         <h3 className="font-serif text-2xl text-white transition-colors duration-300 group-hover:text-gold lg:text-3xl">
-          {destination.name}
+          {destination.name[locale]}
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-light-gray">
-          {destination.tagline}
+          {destination.tagline[locale]}
         </p>
         <div className="mt-4 h-px w-0 bg-gold transition-all duration-500 group-hover:w-12" />
       </div>

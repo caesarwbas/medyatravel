@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { contactDetails } from "@/data/contact";
+import { siteTranslations } from "@/data/translations";
+import type { Locale } from "@/types";
 
 type IconProps = {
   className?: string;
@@ -73,33 +75,38 @@ function MailIcon({ className }: IconProps) {
   );
 }
 
-const links = [
-  {
-    label: "WhatsApp",
-    href: contactDetails.whatsappUrl,
-    icon: WhatsAppIcon,
-  },
-  {
-    label: "Instagram",
-    href: contactDetails.instagramUrl,
-    icon: InstagramIcon,
-  },
-  {
-    label: "Facebook",
-    href: contactDetails.facebookUrl,
-    icon: FacebookIcon,
-  },
-  {
-    label: "Email",
-    href: `mailto:${contactDetails.generalEmail}`,
-    icon: MailIcon,
-  },
-];
+interface SocialDockProps {
+  locale: Locale;
+}
 
-export default function SocialDock() {
+export default function SocialDock({ locale }: SocialDockProps) {
+  const copy = siteTranslations[locale].socialDock;
+  const links = [
+    {
+      label: copy.whatsapp,
+      href: contactDetails.whatsappUrl,
+      icon: WhatsAppIcon,
+    },
+    {
+      label: copy.instagram,
+      href: contactDetails.instagramUrl,
+      icon: InstagramIcon,
+    },
+    {
+      label: copy.facebook,
+      href: contactDetails.facebookUrl,
+      icon: FacebookIcon,
+    },
+    {
+      label: copy.email,
+      href: `mailto:${contactDetails.generalEmail}`,
+      icon: MailIcon,
+    },
+  ];
+
   return (
     <motion.aside
-      aria-label="Contact MEDYA TRAVEL"
+      aria-label={copy.aria}
       initial={{ opacity: 0, x: 20, y: 15 }}
       animate={{ opacity: 1, x: 0, y: 0 }}
       transition={{ duration: 0.8, delay: 1.2 }}

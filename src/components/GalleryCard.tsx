@@ -1,16 +1,17 @@
 import Image from "next/image";
-import type { GalleryImage } from "@/types";
+import type { GalleryImage, Locale } from "@/types";
 
 interface GalleryCardProps {
   image: GalleryImage;
+  locale: Locale;
 }
 
-export default function GalleryCard({ image }: GalleryCardProps) {
+export default function GalleryCard({ image, locale }: GalleryCardProps) {
   return (
     <article className="group relative aspect-[4/5] overflow-hidden bg-charcoal sm:aspect-[3/4]">
       <Image
         src={image.image}
-        alt={image.imageAlt}
+        alt={image.imageAlt[locale]}
         fill
         quality={100}
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -19,10 +20,10 @@ export default function GalleryCard({ image }: GalleryCardProps) {
       <div className="absolute inset-0 bg-gradient-to-t from-brand via-transparent to-transparent opacity-90" />
       <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
         <p className="text-[10px] font-medium uppercase tracking-wide text-gold">
-          {image.location}
+          {image.location[locale]}
         </p>
         <h3 className="mt-1 font-serif text-lg text-white sm:text-xl">
-          {image.title}
+          {image.title[locale]}
         </h3>
       </div>
     </article>

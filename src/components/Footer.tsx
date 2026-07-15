@@ -3,6 +3,8 @@ import Link from "next/link";
 import { assets } from "@/data/assets";
 import { contactDetails } from "@/data/contact";
 import { navLinks } from "@/data/navigation";
+import { siteTranslations } from "@/data/translations";
+import type { Locale } from "@/types";
 
 type IconProps = {
   className?: string;
@@ -71,10 +73,20 @@ function SocialIcon({ type }: { type: "instagram" | "facebook" }) {
   );
 }
 
-const bookingLink =
-  "mailto:booking@medyatravel.de?subject=Private%20Syria%20Journey%20Enquiry";
+interface FooterProps {
+  locale: Locale;
+}
 
-export default function Footer() {
+export default function Footer({ locale }: FooterProps) {
+  const copy = siteTranslations[locale].footer;
+  const bookingSubject =
+    locale === "de"
+      ? "Anfrage für eine private Syrien-Reise"
+      : "استفسار عن رحلة خاصة إلى سوريا";
+  const bookingLink = `mailto:${contactDetails.bookingEmail}?subject=${encodeURIComponent(
+    bookingSubject,
+  )}`;
+
   return (
     <footer
       id="book"
@@ -91,12 +103,12 @@ export default function Footer() {
             <Link
               href="#home"
               className="inline-flex items-center gap-4"
-              aria-label="MEDYA TRAVEL home"
+              aria-label={`MEDYA TRAVEL – ${siteTranslations[locale].common.home}`}
             >
               <span className="relative h-20 w-20 overflow-hidden rounded-full border border-gold/60 shadow-[0_0_30px_rgba(199,156,89,0.2)]">
                 <Image
                   src={assets.favicon}
-                  alt="MEDYA TRAVEL logo"
+                  alt="MEDYA TRAVEL"
                   fill
                   sizes="80px"
                   className="object-cover"
@@ -108,38 +120,39 @@ export default function Footer() {
                   MEDYA TRAVEL
                 </span>
                 <span className="block text-[9px] uppercase tracking-[0.32em] text-gold">
-                  Reisen wie es sein sollte
+                  {copy.slogan}
                 </span>
               </span>
             </Link>
 
             <p className="mt-6 max-w-md text-sm leading-7 text-light-gray">
-              Curated private journeys across Syria, connecting travelers from
-              Germany with history, culture, hospitality, and extraordinary
-              human experiences.
+              {copy.description}
             </p>
 
             <Link
               href={bookingLink}
               className="mt-7 inline-flex min-h-12 items-center justify-center border border-gold bg-gold px-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-brand transition hover:bg-transparent hover:text-gold"
             >
-              Plan Your Journey
+              {copy.planJourney}
             </Link>
           </div>
 
           <div>
             <h2 className="text-xs font-semibold uppercase tracking-[0.26em] text-gold">
-              Navigate
+              {copy.navigate}
             </h2>
 
-            <nav className="mt-6 flex flex-col gap-4" aria-label="Footer navigation">
+            <nav
+              className="mt-6 flex flex-col gap-4"
+              aria-label={copy.navigationAria}
+            >
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   className="w-fit text-sm text-white/65 transition hover:text-gold"
                 >
-                  {link.label}
+                  {link.label[locale]}
                 </Link>
               ))}
             </nav>
@@ -147,7 +160,7 @@ export default function Footer() {
 
           <div>
             <h2 className="text-xs font-semibold uppercase tracking-[0.26em] text-gold">
-              Contact
+              {copy.contact}
             </h2>
 
             <div className="mt-6 space-y-5">
@@ -158,7 +171,7 @@ export default function Footer() {
                 <MailIcon className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
                 <span>
                   <span className="block text-[9px] uppercase tracking-[0.2em] text-white/40">
-                    General enquiries
+                    {copy.generalEnquiries}
                   </span>
                   <span className="mt-1 block text-sm text-white/75 transition group-hover:text-gold">
                     {contactDetails.generalEmail}
@@ -173,7 +186,7 @@ export default function Footer() {
                 <MailIcon className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
                 <span>
                   <span className="block text-[9px] uppercase tracking-[0.2em] text-white/40">
-                    Bookings
+                    {copy.bookings}
                   </span>
                   <span className="mt-1 block text-sm text-white/75 transition group-hover:text-gold">
                     {contactDetails.bookingEmail}
@@ -190,7 +203,7 @@ export default function Footer() {
                 <PhoneIcon className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
                 <span>
                   <span className="block text-[9px] uppercase tracking-[0.2em] text-white/40">
-                    WhatsApp
+                    {copy.whatsapp}
                   </span>
                   <span className="mt-1 block text-sm text-white/75 transition group-hover:text-gold">
                     {contactDetails.phoneDisplay}
@@ -204,7 +217,7 @@ export default function Footer() {
                 href={contactDetails.instagramUrl}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="MEDYA TRAVEL on Instagram"
+                aria-label={copy.instagramAria}
                 className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/70 transition hover:border-gold hover:bg-gold hover:text-brand"
               >
                 <SocialIcon type="instagram" />
@@ -214,13 +227,13 @@ export default function Footer() {
                 href={contactDetails.facebookUrl}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="MEDYA TRAVEL on Facebook"
+                aria-label={copy.facebookAria}
                 className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/70 transition hover:border-gold hover:bg-gold hover:text-brand"
               >
                 <SocialIcon type="facebook" />
               </a>
 
-              <div className="ml-2 text-xs leading-5 text-white/45">
+              <div className="ms-2 text-xs leading-5 text-white/45" dir="ltr">
                 <div>{contactDetails.instagramHandle}</div>
                 <div>{contactDetails.facebookHandle}</div>
               </div>
@@ -230,13 +243,10 @@ export default function Footer() {
 
         <div className="flex flex-col gap-3 pt-7 text-[10px] uppercase tracking-[0.16em] text-white/35 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} MEDYA TRAVEL. All rights reserved.
+            © {new Date().getFullYear()} MEDYA TRAVEL. {copy.rights}
           </p>
 
-          <a
-            href={contactDetails.website}
-            className="transition hover:text-gold"
-          >
+          <a href={contactDetails.website} className="transition hover:text-gold">
             medyatravel.de
           </a>
         </div>

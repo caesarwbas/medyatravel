@@ -1,20 +1,24 @@
+export type Locale = "de" | "ar";
+
+export type LocalizedText = Record<Locale, string>;
+
 export interface Destination {
   id: string;
-  name: string;
-  tagline: string;
+  name: LocalizedText;
+  tagline: LocalizedText;
   image: string;
-  imageAlt: string;
+  imageAlt: LocalizedText;
 }
 
 export interface GalleryImage {
   id: string;
-  title: string;
-  location: string;
+  title: LocalizedText;
+  location: LocalizedText;
   image: string;
-  imageAlt: string;
+  imageAlt: LocalizedText;
 }
 
 export interface NavLink {
-  label: string;
+  label: LocalizedText;
   href: string;
 }

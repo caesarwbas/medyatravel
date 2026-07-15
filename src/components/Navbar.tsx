@@ -5,13 +5,26 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { assets } from "@/data/assets";
 import { navLinks } from "@/data/navigation";
+import { siteTranslations } from "@/data/translations";
+import type { Locale } from "@/types";
 
-const bookingLink =
-  "mailto:booking@medyatravel.de?subject=Private%20Syria%20Journey%20Enquiry";
+interface NavbarProps {
+  locale: Locale;
+}
 
-export default function Navbar() {
+export default function Navbar({ locale }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const copy = siteTranslations[locale];
+  const languageHref = locale === "de" ? "/ar" : "/";
+  const languageCode = locale === "de" ? "AR" : "DE";
+  const bookingSubject =
+    locale === "de"
+      ? "Anfrage für eine private Syrien-Reise"
+      : "استفسار عن رحلة خاصة إلى سوريا";
+  const bookingLink = `mailto:booking@medyatravel.de?subject=${encodeURIComponent(
+    bookingSubject,
+  )}`;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,19 +56,19 @@ export default function Navbar() {
       }`}
     >
       <nav
-        aria-label="Main navigation"
+        aria-label={copy.common.mainNavigation}
         className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10"
       >
         <Link
           href="#home"
           onClick={closeMenu}
           className="group flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
-          aria-label="MEDYA TRAVEL home"
+          aria-label={`MEDYA TRAVEL – ${copy.common.home}`}
         >
           <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-gold/60 bg-brand shadow-[0_0_24px_rgba(199,156,89,0.18)] transition duration-300 group-hover:border-gold group-hover:shadow-[0_0_30px_rgba(199,156,89,0.35)]">
             <Image
               src={assets.favicon}
-              alt="MEDYA TRAVEL logo"
+              alt="MEDYA TRAVEL"
               fill
               sizes="48px"
               className="object-cover"
@@ -68,7 +81,7 @@ export default function Navbar() {
               MEDYA TRAVEL
             </span>
             <span className="block text-[8px] uppercase tracking-[0.32em] text-gold">
-              Germany · Syria
+              {copy.hero.route}
             </span>
           </span>
         </Link>
@@ -80,42 +93,62 @@ export default function Navbar() {
               href={link.href}
               className="relative py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-white/75 transition hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
             >
-              {link.label}
+              {link.label[locale]}
             </Link>
           ))}
+
+          <Link
+            href={languageHref}
+            aria-label={copy.languageSwitchLabel}
+            className="flex h-10 min-w-10 items-center justify-center rounded-full border border-white/20 px-3 text-[10px] font-semibold tracking-[0.16em] text-white/75 transition hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+          >
+            {languageCode}
+          </Link>
 
           <Link
             href={bookingLink}
             className="border border-gold bg-gold px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-brand transition duration-300 hover:bg-transparent hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
           >
-            Book Now
+            {copy.common.bookNow}
           </Link>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setIsMenuOpen((open) => !open)}
-          className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-md lg:hidden"
-          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-navigation"
-        >
-          <span
-            className={`h-px w-5 bg-white transition duration-300 ${
-              isMenuOpen ? "translate-y-2 rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`h-px w-5 bg-white transition duration-300 ${
-              isMenuOpen ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`h-px w-5 bg-white transition duration-300 ${
-              isMenuOpen ? "-translate-y-2 -rotate-45" : ""
-            }`}
-          />
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <Link
+            href={languageHref}
+            aria-label={copy.languageSwitchLabel}
+            className="flex h-11 min-w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 px-3 text-[10px] font-semibold tracking-[0.14em] text-white backdrop-blur-md transition hover:border-gold hover:text-gold"
+          >
+            {languageCode}
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-md lg:hidden"
+            aria-label={
+              isMenuOpen ? copy.common.closeMenu : copy.common.openMenu
+            }
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
+          >
+            <span
+              className={`h-px w-5 bg-white transition duration-300 ${
+                isMenuOpen ? "translate-y-2 rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`h-px w-5 bg-white transition duration-300 ${
+                isMenuOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`h-px w-5 bg-white transition duration-300 ${
+                isMenuOpen ? "-translate-y-2 -rotate-45" : ""
+              }`}
+            />
+          </button>
+        </div>
       </nav>
 
       <div
@@ -134,7 +167,7 @@ export default function Navbar() {
               onClick={closeMenu}
               className="border-b border-white/10 py-4 text-sm uppercase tracking-[0.18em] text-white/80 transition hover:text-gold"
             >
-              {link.label}
+              {link.label[locale]}
             </Link>
           ))}
 
@@ -143,7 +176,7 @@ export default function Navbar() {
             onClick={closeMenu}
             className="mt-6 inline-flex min-h-12 items-center justify-center bg-gold px-6 text-xs font-semibold uppercase tracking-[0.2em] text-brand"
           >
-            Book Now
+            {copy.common.bookNow}
           </Link>
         </div>
       </div>

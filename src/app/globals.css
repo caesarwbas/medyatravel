@@ -44,3 +44,21 @@ body {
   background-color: rgba(197, 160, 89, 0.35);
   color: #ffffff;
 }
+
+.site-ar {
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+.site-ar .font-serif {
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+.site-ar [class*="tracking-"] {
+  letter-spacing: 0 !important;
+}
+
+.site-ar a[href^="mailto:"],
+.site-ar a[href^="https://wa.me"],
+.site-ar [dir="ltr"] {
+  unicode-bidi: isolate;
+}

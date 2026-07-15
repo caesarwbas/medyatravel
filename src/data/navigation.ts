@@ -1,8 +1,20 @@
 import type { NavLink } from "@/types";
 
 export const navLinks: NavLink[] = [
-  { label: "Destinations", href: "#destinations" },
-  { label: "Experiences", href: "#experiences" },
-  { label: "Catalogue", href: "#catalogue" },
-  { label: "About Us", href: "#about" },
+  {
+    label: { de: "Reiseziele", ar: "الوجهات" },
+    href: "#destinations",
+  },
+  {
+    label: { de: "Erlebnisse", ar: "التجارب" },
+    href: "#experiences",
+  },
+  {
+    label: { de: "Reiseprogramm", ar: "برنامج الرحلة" },
+    href: "#catalogue",
+  },
+  {
+    label: { de: "Über uns", ar: "من نحن" },
+    href: "#about",
+  },
 ];

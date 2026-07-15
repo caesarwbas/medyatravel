@@ -11,6 +11,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { PointerEvent } from "react";
 import { assets } from "@/data/assets";
+import { siteTranslations } from "@/data/translations";
+import type { Locale } from "@/types";
 
 const particles = [
   { left: "8%", top: "18%", size: 3, delay: 0 },
@@ -24,8 +26,13 @@ const particles = [
   { left: "92%", top: "18%", size: 2, delay: 2.8 },
 ];
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  locale: Locale;
+}
+
+export default function HeroSection({ locale }: HeroSectionProps) {
   const reduceMotion = useReducedMotion();
+  const copy = siteTranslations[locale].hero;
 
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
@@ -44,13 +51,10 @@ export default function HeroSection() {
 
   const rotateY = useTransform(smoothX, [-1, 1], [-5, 5]);
   const rotateX = useTransform(smoothY, [-1, 1], [4, -4]);
-
   const backgroundX = useTransform(smoothX, [-1, 1], [-18, 18]);
   const backgroundY = useTransform(smoothY, [-1, 1], [-12, 12]);
-
   const logoX = useTransform(smoothX, [-1, 1], [-12, 12]);
   const logoY = useTransform(smoothY, [-1, 1], [-8, 8]);
-
   const contentX = useTransform(smoothX, [-1, 1], [-5, 5]);
   const contentY = useTransform(smoothY, [-1, 1], [-4, 4]);
 
@@ -181,19 +185,19 @@ export default function HeroSection() {
             <div className="mb-6 flex items-center gap-4">
               <span className="h-px w-10 bg-gold" />
               <p className="text-[10px] font-semibold uppercase tracking-[0.38em] text-gold sm:text-xs">
-                Curated journeys to Syria
+                {copy.eyebrow}
               </p>
             </div>
 
             <h1 className="max-w-4xl font-serif text-5xl font-light leading-[0.92] text-white sm:text-7xl lg:text-[92px]">
-              Reisen wie es
-              <span className="block italic text-gold">sein sollte</span>
+              {copy.headingLineOne}
+              <span className="block italic text-gold">
+                {copy.headingLineTwo}
+              </span>
             </h1>
 
             <p className="mt-7 max-w-xl text-sm leading-7 text-light-gray sm:text-base sm:leading-8">
-              Bespoke journeys through Syria, created for travelers who value
-              authenticity, culture, comfort, and unforgettable human
-              encounters.
+              {copy.description}
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -201,20 +205,20 @@ export default function HeroSection() {
                 href="#destinations"
                 className="inline-flex min-h-12 items-center justify-center border border-gold bg-gold px-7 text-xs font-semibold uppercase tracking-[0.22em] text-brand transition duration-300 hover:bg-transparent hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
               >
-                Explore Destinations
+                {copy.destinationsButton}
               </Link>
 
               <Link
                 href="#catalogue"
                 className="inline-flex min-h-12 items-center justify-center border border-white/30 bg-white/5 px-7 text-xs font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md transition duration-300 hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
               >
-                View Catalogue
+                {copy.catalogueButton}
               </Link>
             </div>
 
             <div className="mt-12 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-white/55">
               <span className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_12px_rgba(199,156,89,0.9)]" />
-              Germany · Syria
+              {copy.route}
             </div>
           </motion.div>
 
@@ -242,22 +246,14 @@ export default function HeroSection() {
               aria-hidden="true"
               className="absolute inset-[5%] rounded-full border border-gold/25"
               animate={reduceMotion ? undefined : { rotate: 360 }}
-              transition={{
-                duration: 30,
-                repeat: Infinity,
-                ease: "linear",
-              }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
             />
 
             <motion.div
               aria-hidden="true"
               className="absolute inset-[14%] rounded-full border border-dashed border-gold/35"
               animate={reduceMotion ? undefined : { rotate: -360 }}
-              transition={{
-                duration: 24,
-                repeat: Infinity,
-                ease: "linear",
-              }}
+              transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
             />
 
             <div
@@ -267,23 +263,13 @@ export default function HeroSection() {
 
             <motion.div
               className="relative h-60 w-60 overflow-hidden rounded-full border border-gold/70 bg-brand/70 p-2 shadow-[0_0_80px_rgba(199,156,89,0.28)] backdrop-blur-xl"
-              animate={
-                reduceMotion
-                  ? undefined
-                  : {
-                      y: [0, -10, 0],
-                    }
-              }
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+              animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
             >
               <div className="relative h-full w-full overflow-hidden rounded-full">
                 <Image
                   src={assets.favicon}
-                  alt="MEDYA TRAVEL logo"
+                  alt="MEDYA TRAVEL"
                   fill
                   sizes="240px"
                   className="object-cover"
@@ -292,7 +278,7 @@ export default function HeroSection() {
             </motion.div>
 
             <div className="absolute bottom-[3%] left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-brand/55 px-5 py-2 text-[9px] uppercase tracking-[0.32em] text-white/70 backdrop-blur-xl">
-              Private cultural journeys
+              {copy.floatingLabel}
             </div>
           </motion.div>
         </div>

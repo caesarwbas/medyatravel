@@ -15,21 +15,20 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://medyatravel.de"),
-
   applicationName: "MEDYA TRAVEL",
-
   title: {
     default: "Syrien Reisen & Rundreisen | MEDYA TRAVEL Deutschland",
     template: "%s | MEDYA TRAVEL",
   },
-
   description:
     "Entdecken Sie Syrien mit MEDYA TRAVEL: sorgfältig geplante Rundreisen, Kulturreisen und individuelle Reiseprogramme ab Deutschland.",
-
   alternates: {
     canonical: "/",
+    languages: {
+      "de-DE": "/",
+      ar: "/ar",
+    },
   },
-
   robots: {
     index: true,
     follow: true,
@@ -41,10 +40,10 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-
   openGraph: {
     type: "website",
     locale: "de_DE",
+    alternateLocale: ["ar_AR"],
     url: "https://medyatravel.de",
     siteName: "MEDYA TRAVEL",
     title: "Syrien Reisen & Rundreisen | MEDYA TRAVEL Deutschland",
@@ -59,7 +58,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-
   twitter: {
     card: "summary_large_image",
     title: "Syrien Reisen & Rundreisen | MEDYA TRAVEL",
@@ -67,7 +65,6 @@ export const metadata: Metadata = {
       "Individuelle Rundreisen und Kulturreisen nach Syrien ab Deutschland.",
     images: ["/twitter-image.jpg"],
   },
-
   icons: {
     icon: [
       {
@@ -85,7 +82,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-
   category: "travel",
 };
 
@@ -97,6 +93,8 @@ export default function RootLayout({
   return (
     <html
       lang="de"
+      dir="ltr"
+      suppressHydrationWarning
       className={`${cormorant.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full overflow-x-hidden bg-brand font-sans text-white">
