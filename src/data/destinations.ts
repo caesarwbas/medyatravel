@@ -4,11 +4,11 @@ const cdn = "https://res.cloudinary.com/lclxcm8g/image/upload";
 
 export const destinations: Destination[] = [
   {
-    id: "damascus",
-    name: "Damascus",
-    tagline: "The world's oldest living capital",
+    id: "tartus",
+    name: "Tartus",
+    tagline: "Mediterranean elegance redefined",
     image: `${cdn}/v1783899049/Screenshot_2026-07-12_200420_rr2jls.png`,
-    imageAlt: "Historic streets and architecture in Damascus",
+    imageAlt: "Mediterranean elegance and historic architecture in Tartus",
   },
   {
     id: "aleppo",
@@ -25,18 +25,18 @@ export const destinations: Destination[] = [
     imageAlt: "Mount Qasioun overlooking Damascus",
   },
   {
+    id: "mashta-al-helou",
+    name: "Mashta Al Helou",
+    tagline: "Mountain serenity above the clouds",
+    image: `${cdn}/v1783899047/1049915691_0030722048_1920x0_80_0_0_219a9611a48cb4a756ff44212002eb5b_ctkkul.jpg`,
+    imageAlt: "Mountain landscape and natural beauty in Mashta Al Helou",
+  },
+  {
     id: "palmyra",
     name: "Palmyra",
     tagline: "Desert rose of antiquity",
-    image: `${cdn}/v1783899047/1049915691_0030722048_1920x0_80_0_0_219a9611a48cb4a756ff44212002eb5b_ctkkul.jpg`,
-    imageAlt: "Ancient ruins of Palmyra in the Syrian desert",
-  },
-  {
-    id: "tartus",
-    name: "Tartus",
-    tagline: "Mediterranean elegance redefined",
     image: `${cdn}/v1783899059/59642608_804_w9zlq4.jpg`,
-    imageAlt: "Mediterranean coastline near Tartus",
+    imageAlt: "Palmyra, the desert rose of Syrian antiquity",
   },
   {
     id: "latakia",

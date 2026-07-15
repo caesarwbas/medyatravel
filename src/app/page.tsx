@@ -5,11 +5,13 @@ import ExperiencesGallery from "@/components/ExperiencesGallery";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
+import SocialDock from "@/components/SocialDock";
 
 export default function Home() {
   return (
     <>
       <Navbar />
+
       <main>
         <HeroSection />
         <DestinationHighlights />
@@ -17,7 +19,9 @@ export default function Home() {
         <CatalogueSection />
         <AboutSection />
       </main>
+
       <Footer />
+      <SocialDock />
     </>
   );
 }
