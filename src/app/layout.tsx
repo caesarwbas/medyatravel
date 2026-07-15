@@ -24,30 +24,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Entdecken Sie Syrien mit MEDYA TRAVEL: sorgfältig geplante Rundreisen, Kulturreisen, exklusive Hotels und individuelle Reiseprogramme ab Deutschland.",
-
-  keywords: [
-    "Syrien Reisen",
-    "Syrien Rundreise",
-    "Reise nach Syrien",
-    "Syrien Urlaub",
-    "Syrien Kulturreise",
-    "Damaskus Reise",
-    "Aleppo Reise",
-    "Palmyra Reise",
-    "Syrien Reiseveranstalter",
-    "MEDYA TRAVEL",
-  ],
-
-  authors: [
-    {
-      name: "MEDYA TRAVEL",
-      url: "https://medyatravel.de",
-    },
-  ],
-
-  creator: "MEDYA TRAVEL",
-  publisher: "MEDYA TRAVEL",
+    "Entdecken Sie Syrien mit MEDYA TRAVEL: sorgfältig geplante Rundreisen, Kulturreisen und individuelle Reiseprogramme ab Deutschland.",
 
   alternates: {
     canonical: "/",
@@ -72,14 +49,41 @@ export const metadata: Metadata = {
     siteName: "MEDYA TRAVEL",
     title: "Syrien Reisen & Rundreisen | MEDYA TRAVEL Deutschland",
     description:
-      "Entdecken Sie Syrien mit MEDYA TRAVEL: Rundreisen, Kulturreisen und individuelle Reiseprogramme ab Deutschland.",
+      "Individuelle Rundreisen und Kulturreisen nach Syrien ab Deutschland.",
+    images: [
+      {
+        url: "/opengraph-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "MEDYA TRAVEL – Reisen nach Syrien",
+      },
+    ],
   },
 
   twitter: {
     card: "summary_large_image",
     title: "Syrien Reisen & Rundreisen | MEDYA TRAVEL",
     description:
-      "Rundreisen, Kulturreisen und individuelle Reiseprogramme nach Syrien.",
+      "Individuelle Rundreisen und Kulturreisen nach Syrien ab Deutschland.",
+    images: ["/twitter-image.jpg"],
+  },
+
+  icons: {
+    icon: [
+      {
+        url: "/icon.png",
+        type: "image/png",
+        sizes: "512x512",
+      },
+    ],
+    shortcut: "/icon.png",
+    apple: [
+      {
+        url: "/apple-icon.png",
+        type: "image/png",
+        sizes: "180x180",
+      },
+    ],
   },
 
   category: "travel",
