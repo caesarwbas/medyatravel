@@ -9,8 +9,9 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useSyncExternalStore, type PointerEvent } from "react";
+import type { PointerEvent } from "react";
 import { assets } from "@/data/assets";
+import HeroVideo from "@/components/HeroVideo";
 import { siteTranslations } from "@/data/translations";
 import type { Locale } from "@/types";
 
@@ -26,42 +27,6 @@ const particles = [
   { left: "92%", top: "18%", size: 2, delay: 2.8 },
 ];
 
-const subscribeToHydration = () => () => undefined;
-const getClientHydrationSnapshot = () => true;
-const getServerHydrationSnapshot = () => false;
-
-function HeroVideo() {
-  const [isReady, setIsReady] = useState(false);
-
-  return (
-    <motion.video
-      aria-hidden="true"
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      poster="/videos/hero-poster.jpg"
-      onCanPlay={() => setIsReady(true)}
-      className="absolute inset-0 h-full w-full object-cover object-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: isReady ? 1 : 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
-      <source
-        src="/videos/hero-mobile.mp4"
-        type="video/mp4"
-        media="(max-width: 767px)"
-      />
-      <source
-        src="/videos/hero-desktop.mp4"
-        type="video/mp4"
-        media="(min-width: 768px)"
-      />
-    </motion.video>
-  );
-}
-
 interface HeroSectionProps {
   locale: Locale;
 }
@@ -70,12 +35,6 @@ export default function HeroSection({ locale }: HeroSectionProps) {
   const reduceMotion = useReducedMotion();
   const copy = siteTranslations[locale].hero;
   const isArabic = locale === "ar";
-  const isHydrated = useSyncExternalStore(
-    subscribeToHydration,
-    getClientHydrationSnapshot,
-    getServerHydrationSnapshot,
-  );
-  const shouldPlayVideo = isHydrated && !reduceMotion;
 
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
@@ -94,8 +53,12 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
   const rotateY = useTransform(smoothX, [-1, 1], [-5, 5]);
   const rotateX = useTransform(smoothY, [-1, 1], [4, -4]);
-  const backgroundX = useTransform(smoothX, [-1, 1], [-18, 18]);
-  const backgroundY = useTransform(smoothY, [-1, 1], [-12, 12]);
+  const backgroundX = useTransform(smoothX, [-1, 1], [-24, 24]);
+  const backgroundY = useTransform(smoothY, [-1, 1], [-16, 16]);
+  const videoRotateY = useTransform(smoothX, [-1, 1], [-1.6, 1.6]);
+  const videoRotateX = useTransform(smoothY, [-1, 1], [1.15, -1.15]);
+  const glowX = useTransform(smoothX, [-1, 1], [28, -28]);
+  const glowY = useTransform(smoothY, [-1, 1], [18, -18]);
   const logoX = useTransform(smoothX, [-1, 1], [-12, 12]);
   const logoY = useTransform(smoothY, [-1, 1], [-8, 8]);
   const contentX = useTransform(smoothX, [-1, 1], [-5, 5]);
@@ -129,30 +92,41 @@ export default function HeroSection({ locale }: HeroSectionProps) {
     >
       <motion.div
         aria-hidden="true"
-        className="absolute -inset-8"
+        className="absolute -inset-10 origin-center will-change-transform"
+        style={
+          reduceMotion
+            ? { scale: 1.1 }
+            : {
+                x: backgroundX,
+                y: backgroundY,
+                rotateX: videoRotateX,
+                rotateY: videoRotateY,
+                scale: 1.12,
+                transformStyle: "preserve-3d",
+              }
+        }
+        initial={reduceMotion ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <HeroVideo />
+      </motion.div>
+
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-40"
         style={
           reduceMotion
             ? undefined
             : {
-                x: backgroundX,
-                y: backgroundY,
-                scale: 1.06,
+                x: glowX,
+                y: glowY,
+                transform: "translateZ(40px)",
               }
         }
-        initial={reduceMotion ? false : { scale: 1.14, opacity: 0 }}
-        animate={{ scale: 1.06, opacity: 1 }}
-        transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Image
-          src="/videos/hero-poster.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-
-        {shouldPlayVideo ? <HeroVideo /> : null}
+        <div className="absolute -right-24 top-[18%] h-80 w-80 rounded-full bg-gold/15 blur-[100px]" />
+        <div className="absolute -left-28 bottom-[8%] h-72 w-72 rounded-full bg-white/5 blur-[110px]" />
       </motion.div>
 
       <div className="absolute inset-0 bg-gradient-to-r from-brand via-brand/80 to-brand/30" />
@@ -264,18 +238,14 @@ export default function HeroSection({ locale }: HeroSectionProps) {
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="#destinations"
-                className={`inline-flex min-h-12 items-center justify-center border border-gold bg-gold px-7 text-xs font-semibold uppercase tracking-[0.22em] text-brand transition duration-300 hover:bg-transparent hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
-                  isArabic ? "hero-arabic-button" : ""
-                }`}
+                className={`inline-flex min-h-12 items-center justify-center border border-gold bg-gold px-7 text-xs font-semibold uppercase tracking-[0.22em] text-brand transition duration-300 hover:bg-transparent hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${isArabic ? "hero-arabic-button" : ""}`}
               >
                 {copy.destinationsButton}
               </Link>
 
               <Link
                 href="#catalogue"
-                className={`inline-flex min-h-12 items-center justify-center border border-white/30 bg-white/5 px-7 text-xs font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md transition duration-300 hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
-                  isArabic ? "hero-arabic-button" : ""
-                }`}
+                className={`inline-flex min-h-12 items-center justify-center border border-white/30 bg-white/5 px-7 text-xs font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md transition duration-300 hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${isArabic ? "hero-arabic-button" : ""}`}
               >
                 {copy.catalogueButton}
               </Link>
