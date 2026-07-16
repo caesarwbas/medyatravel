@@ -45,14 +45,6 @@ body {
   color: #ffffff;
 }
 
-.site-ar {
-  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-}
-
-.site-ar .font-serif {
-  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-}
-
 .site-ar [class*="tracking-"] {
   letter-spacing: 0 !important;
 }
@@ -61,4 +53,82 @@ body {
 .site-ar a[href^="https://wa.me"],
 .site-ar [dir="ltr"] {
   unicode-bidi: isolate;
+}
+
+/* Arabic typography: geometric, bold and highly legible without affecting EN/DE. */
+.site-ar {
+  font-family: var(--font-arabic), "Segoe UI", Tahoma, Arial, sans-serif;
+  font-weight: 500;
+}
+
+.site-ar .font-serif,
+.site-ar .font-sans,
+.site-ar h1,
+.site-ar h2,
+.site-ar h3 {
+  font-family: var(--font-arabic), "Segoe UI", Tahoma, Arial, sans-serif;
+  font-style: normal;
+}
+
+.site-ar h2 {
+  font-size: clamp(2.35rem, 4.8vw, 4.6rem);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.site-ar h3 {
+  font-size: clamp(1.45rem, 2.1vw, 2rem);
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.site-ar p {
+  font-size: max(1em, 1rem);
+  line-height: 1.95;
+}
+
+.site-ar button,
+.site-ar a {
+  font-weight: 600;
+}
+
+.site-ar .hero-arabic-heading {
+  max-width: 48rem;
+  font-size: clamp(3.25rem, 7vw, 6.25rem);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.site-ar .hero-arabic-eyebrow {
+  font-size: clamp(0.78rem, 1vw, 0.95rem);
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+.site-ar .hero-arabic-copy {
+  max-width: 42rem;
+  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  font-weight: 500;
+  line-height: 2;
+}
+
+.site-ar .hero-arabic-button {
+  min-height: 3.5rem;
+  padding-inline: 2rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .site-ar .hero-arabic-heading {
+    font-size: clamp(2.8rem, 13vw, 4.25rem);
+    line-height: 1.24;
+  }
+
+  .site-ar .hero-arabic-copy {
+    font-size: 1rem;
+  }
 }

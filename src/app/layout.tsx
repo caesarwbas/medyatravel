@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Cormorant_Garamond, Inter, Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -11,6 +11,13 @@ const cormorant = Cormorant_Garamond({
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const notoKufiArabic = Noto_Kufi_Arabic({
+  variable: "--font-arabic",
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -96,7 +103,7 @@ export default function RootLayout({
       lang="en"
       dir="ltr"
       suppressHydrationWarning
-      className={`${cormorant.variable} ${inter.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${inter.variable} ${notoKufiArabic.variable} h-full antialiased`}
     >
       <body className="min-h-full overflow-x-hidden bg-brand font-sans text-white">
         {children}

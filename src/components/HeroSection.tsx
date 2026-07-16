@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import type { PointerEvent } from "react";
+import { useState, useSyncExternalStore, type PointerEvent } from "react";
 import { assets } from "@/data/assets";
 import { siteTranslations } from "@/data/translations";
 import type { Locale } from "@/types";
@@ -26,6 +26,42 @@ const particles = [
   { left: "92%", top: "18%", size: 2, delay: 2.8 },
 ];
 
+const subscribeToHydration = () => () => undefined;
+const getClientHydrationSnapshot = () => true;
+const getServerHydrationSnapshot = () => false;
+
+function HeroVideo() {
+  const [isReady, setIsReady] = useState(false);
+
+  return (
+    <motion.video
+      aria-hidden="true"
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      poster="/videos/hero-poster.jpg"
+      onCanPlay={() => setIsReady(true)}
+      className="absolute inset-0 h-full w-full object-cover object-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isReady ? 1 : 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <source
+        src="/videos/hero-mobile.mp4"
+        type="video/mp4"
+        media="(max-width: 767px)"
+      />
+      <source
+        src="/videos/hero-desktop.mp4"
+        type="video/mp4"
+        media="(min-width: 768px)"
+      />
+    </motion.video>
+  );
+}
+
 interface HeroSectionProps {
   locale: Locale;
 }
@@ -33,6 +69,13 @@ interface HeroSectionProps {
 export default function HeroSection({ locale }: HeroSectionProps) {
   const reduceMotion = useReducedMotion();
   const copy = siteTranslations[locale].hero;
+  const isArabic = locale === "ar";
+  const isHydrated = useSyncExternalStore(
+    subscribeToHydration,
+    getClientHydrationSnapshot,
+    getServerHydrationSnapshot,
+  );
+  const shouldPlayVideo = isHydrated && !reduceMotion;
 
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
@@ -101,13 +144,15 @@ export default function HeroSection({ locale }: HeroSectionProps) {
         transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
       >
         <Image
-          src={assets.backgrounds.primary}
+          src="/videos/hero-poster.jpg"
           alt=""
           fill
           priority
           sizes="100vw"
           className="object-cover object-center"
         />
+
+        {shouldPlayVideo ? <HeroVideo /> : null}
       </motion.div>
 
       <div className="absolute inset-0 bg-gradient-to-r from-brand via-brand/80 to-brand/30" />
@@ -184,33 +229,53 @@ export default function HeroSection({ locale }: HeroSectionProps) {
           >
             <div className="mb-6 flex items-center gap-4">
               <span className="h-px w-10 bg-gold" />
-              <p className="text-[10px] font-semibold uppercase tracking-[0.38em] text-gold sm:text-xs">
+              <p
+                className={`text-[10px] font-semibold uppercase tracking-[0.38em] text-gold sm:text-xs ${
+                  isArabic ? "hero-arabic-eyebrow" : ""
+                }`}
+              >
                 {copy.eyebrow}
               </p>
             </div>
 
-            <h1 className="max-w-4xl font-serif text-5xl font-light leading-[0.92] text-white sm:text-7xl lg:text-[92px]">
+            <h1
+              className={`max-w-4xl text-white ${
+                isArabic
+                  ? "hero-arabic-heading font-sans"
+                  : "font-serif text-5xl font-light leading-[0.92] sm:text-7xl lg:text-[92px]"
+              }`}
+            >
               {copy.headingLineOne}
-              <span className="block italic text-gold">
+              <span
+                className={`block text-gold ${isArabic ? "mt-2" : "italic"}`}
+              >
                 {copy.headingLineTwo}
               </span>
             </h1>
 
-            <p className="mt-7 max-w-xl text-sm leading-7 text-light-gray sm:text-base sm:leading-8">
+            <p
+              className={`mt-7 max-w-xl text-sm leading-7 text-light-gray sm:text-base sm:leading-8 ${
+                isArabic ? "hero-arabic-copy" : ""
+              }`}
+            >
               {copy.description}
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
                 href="#destinations"
-                className="inline-flex min-h-12 items-center justify-center border border-gold bg-gold px-7 text-xs font-semibold uppercase tracking-[0.22em] text-brand transition duration-300 hover:bg-transparent hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+                className={`inline-flex min-h-12 items-center justify-center border border-gold bg-gold px-7 text-xs font-semibold uppercase tracking-[0.22em] text-brand transition duration-300 hover:bg-transparent hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
+                  isArabic ? "hero-arabic-button" : ""
+                }`}
               >
                 {copy.destinationsButton}
               </Link>
 
               <Link
                 href="#catalogue"
-                className="inline-flex min-h-12 items-center justify-center border border-white/30 bg-white/5 px-7 text-xs font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md transition duration-300 hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+                className={`inline-flex min-h-12 items-center justify-center border border-white/30 bg-white/5 px-7 text-xs font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md transition duration-300 hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
+                  isArabic ? "hero-arabic-button" : ""
+                }`}
               >
                 {copy.catalogueButton}
               </Link>
