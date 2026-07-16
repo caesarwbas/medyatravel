@@ -2,6 +2,12 @@ import type { MetadataRoute } from "next";
 
 const baseUrl = "https://medyatravel.de";
 
+const languageAlternates = {
+  en: baseUrl,
+  de: `${baseUrl}/de`,
+  ar: `${baseUrl}/ar`,
+};
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
@@ -9,24 +15,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
-      alternates: {
-        languages: {
-          de: baseUrl,
-          ar: `${baseUrl}/ar`,
-        },
-      },
+      alternates: { languages: languageAlternates },
+    },
+    {
+      url: `${baseUrl}/de`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+      alternates: { languages: languageAlternates },
     },
     {
       url: `${baseUrl}/ar`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
-      alternates: {
-        languages: {
-          de: baseUrl,
-          ar: `${baseUrl}/ar`,
-        },
-      },
+      alternates: { languages: languageAlternates },
     },
   ];
 }

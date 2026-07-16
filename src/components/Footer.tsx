@@ -79,10 +79,12 @@ interface FooterProps {
 
 export default function Footer({ locale }: FooterProps) {
   const copy = siteTranslations[locale].footer;
-  const bookingSubject =
-    locale === "de"
-      ? "Anfrage für eine private Syrien-Reise"
-      : "استفسار عن رحلة خاصة إلى سوريا";
+  const bookingSubjects: Record<Locale, string> = {
+    en: "Private Syria journey enquiry",
+    de: "Anfrage für eine private Syrien-Reise",
+    ar: "استفسار عن رحلة خاصة إلى سوريا",
+  };
+  const bookingSubject = bookingSubjects[locale];
   const bookingLink = `mailto:${contactDetails.bookingEmail}?subject=${encodeURIComponent(
     bookingSubject,
   )}`;

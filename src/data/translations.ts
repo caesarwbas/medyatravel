@@ -75,9 +75,89 @@ type SiteCopy = {
 };
 
 export const siteTranslations: Record<Locale, SiteCopy> = {
+  en: {
+    languageName: "English",
+    languageSwitchLabel: "Change language",
+    common: {
+      home: "Home",
+      mainNavigation: "Main navigation",
+      openMenu: "Open navigation menu",
+      closeMenu: "Close navigation menu",
+      bookNow: "Book Now",
+    },
+    hero: {
+      eyebrow: "Curated journeys to Syria",
+      headingLineOne: "Reisen wie es",
+      headingLineTwo: "sein sollte",
+      description:
+        "Bespoke journeys through Syria, created for travelers who value authenticity, culture, comfort, and unforgettable human encounters.",
+      destinationsButton: "Explore Destinations",
+      catalogueButton: "View Catalogue",
+      route: "Germany · Syria",
+      floatingLabel: "Private cultural journeys",
+    },
+    destinations: {
+      eyebrow: "Destinations",
+      title: "Extraordinary Places",
+      description:
+        "From ancient capitals to sun-drenched coastlines, discover Syria's most captivating destinations through the lens of luxury travel.",
+    },
+    experiences: {
+      eyebrow: "Experiences",
+      title: "Syria, Unveiled",
+      description:
+        "From sacred heritage sites to refined coastal escapes — every journey is composed with the eye of a curator and the care of a private concierge.",
+      arrivalEyebrow: "Seamless Arrival",
+      arrivalTitle: "Private aviation & white-glove transfers",
+      airplaneAlt: "Luxury business travel with an airplane in flight at sunset",
+    },
+    catalogue: {
+      eyebrow: "Catalogue",
+      title: "MEDYA TRAVEL Catalogue",
+      description: "Explore our luxury journeys.",
+      downloadButton: "Download Brochure",
+      itinerariesButton: "Explore Itineraries",
+      partnerAlt: "Syrian travel partner logo",
+      partnerDescription:
+        "Crafted in partnership with trusted local experts to ensure every detail of your Syrian journey meets the highest standards of comfort, quality, and authenticity.",
+    },
+    about: {
+      eyebrow: "About Us",
+      title: "A New Standard in Syrian Travel",
+      paragraphOne:
+        "MEDYA TRAVEL was founded on a singular belief: that Syria deserves to be experienced not as a destination, but as a revelation. We design private journeys for travelers who value discretion, cultural depth, and uncompromising comfort.",
+      paragraphTwo:
+        "Every itinerary is personally composed — from heritage walks through Damascus to sunset dinners on the Mediterranean coast — with the precision of a luxury maison and the warmth of a trusted guide.",
+      founderAlt: "MEDYA TRAVEL founder profile",
+      partnerAlt: "Official Syrian partner logo",
+      partnerLabel: "Official Syrian Partner",
+    },
+    footer: {
+      slogan: "Travel as it should be",
+      description:
+        "Bespoke private journeys through Syria, connecting travelers from Germany with the country's history, culture, hospitality, and extraordinary human encounters.",
+      planJourney: "Plan Your Journey",
+      navigate: "Navigate",
+      contact: "Contact",
+      generalEnquiries: "General enquiries",
+      bookings: "Bookings",
+      whatsapp: "WhatsApp",
+      instagramAria: "MEDYA TRAVEL on Instagram",
+      facebookAria: "MEDYA TRAVEL on Facebook",
+      rights: "All rights reserved.",
+      navigationAria: "Footer navigation",
+    },
+    socialDock: {
+      aria: "Contact MEDYA TRAVEL",
+      whatsapp: "WhatsApp",
+      instagram: "Instagram",
+      facebook: "Facebook",
+      email: "Email",
+    },
+  },
   de: {
     languageName: "Deutsch",
-    languageSwitchLabel: "Arabisch anzeigen",
+    languageSwitchLabel: "Sprache wechseln",
     common: {
       home: "Startseite",
       mainNavigation: "Hauptnavigation",
@@ -157,7 +237,7 @@ export const siteTranslations: Record<Locale, SiteCopy> = {
   },
   ar: {
     languageName: "العربية",
-    languageSwitchLabel: "عرض الموقع بالألمانية",
+    languageSwitchLabel: "تغيير اللغة",
     common: {
       home: "الصفحة الرئيسية",
       mainNavigation: "القائمة الرئيسية",

@@ -12,18 +12,28 @@ interface NavbarProps {
   locale: Locale;
 }
 
+const languageLinks: Array<{
+  locale: Locale;
+  code: string;
+  href: string;
+}> = [
+  { locale: "en", code: "EN", href: "/" },
+  { locale: "de", code: "DE", href: "/de" },
+  { locale: "ar", code: "AR", href: "/ar" },
+];
+
+const bookingSubjects: Record<Locale, string> = {
+  en: "Private Syria journey enquiry",
+  de: "Anfrage für eine private Syrien-Reise",
+  ar: "استفسار عن رحلة خاصة إلى سوريا",
+};
+
 export default function Navbar({ locale }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const copy = siteTranslations[locale];
-  const languageHref = locale === "de" ? "/ar" : "/";
-  const languageCode = locale === "de" ? "AR" : "DE";
-  const bookingSubject =
-    locale === "de"
-      ? "Anfrage für eine private Syrien-Reise"
-      : "استفسار عن رحلة خاصة إلى سوريا";
   const bookingLink = `mailto:booking@medyatravel.de?subject=${encodeURIComponent(
-    bookingSubject,
+    bookingSubjects[locale],
   )}`;
 
   useEffect(() => {
@@ -97,13 +107,26 @@ export default function Navbar({ locale }: NavbarProps) {
             </Link>
           ))}
 
-          <Link
-            href={languageHref}
+          <div
             aria-label={copy.languageSwitchLabel}
-            className="flex h-10 min-w-10 items-center justify-center rounded-full border border-white/20 px-3 text-[10px] font-semibold tracking-[0.16em] text-white/75 transition hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+            className="flex items-center rounded-full border border-white/20 p-1"
           >
-            {languageCode}
-          </Link>
+            {languageLinks.map((language) => (
+              <Link
+                key={language.locale}
+                href={language.href}
+                aria-current={language.locale === locale ? "page" : undefined}
+                aria-label={siteTranslations[language.locale].languageName}
+                className={`flex h-8 min-w-9 items-center justify-center rounded-full px-2 text-[9px] font-semibold tracking-[0.12em] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold ${
+                  language.locale === locale
+                    ? "bg-gold text-brand"
+                    : "text-white/65 hover:text-gold"
+                }`}
+              >
+                {language.code}
+              </Link>
+            ))}
+          </div>
 
           <Link
             href={bookingLink}
@@ -114,13 +137,27 @@ export default function Navbar({ locale }: NavbarProps) {
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <Link
-            href={languageHref}
+          <div
             aria-label={copy.languageSwitchLabel}
-            className="flex h-11 min-w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 px-3 text-[10px] font-semibold tracking-[0.14em] text-white backdrop-blur-md transition hover:border-gold hover:text-gold"
+            className="flex items-center rounded-full border border-white/15 bg-white/5 p-1 backdrop-blur-md"
           >
-            {languageCode}
-          </Link>
+            {languageLinks.map((language) => (
+              <Link
+                key={language.locale}
+                href={language.href}
+                onClick={closeMenu}
+                aria-current={language.locale === locale ? "page" : undefined}
+                aria-label={siteTranslations[language.locale].languageName}
+                className={`flex h-8 min-w-8 items-center justify-center rounded-full px-1.5 text-[8px] font-semibold tracking-[0.08em] transition ${
+                  language.locale === locale
+                    ? "bg-gold text-brand"
+                    : "text-white/70 hover:text-gold"
+                }`}
+              >
+                {language.code}
+              </Link>
+            ))}
+          </div>
 
           <button
             type="button"

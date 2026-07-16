@@ -17,11 +17,7 @@ export default function SitePage({ locale }: SitePageProps) {
   const direction = locale === "ar" ? "rtl" : "ltr";
 
   return (
-    <div
-      lang={locale}
-      dir={direction}
-      className={locale === "ar" ? "site-ar" : "site-de"}
-    >
+    <div lang={locale} dir={direction} className={`site-${locale}`}>
       <DocumentLocale locale={locale} />
       <Navbar locale={locale} />
 
