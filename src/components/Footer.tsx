@@ -4,6 +4,7 @@ import { assets } from "@/data/assets";
 import { contactDetails } from "@/data/contact";
 import { navLinks } from "@/data/navigation";
 import { siteTranslations } from "@/data/translations";
+import { homePaths, legalPaths, localizeAnchor } from "@/data/routes";
 import type { Locale } from "@/types";
 
 type IconProps = {
@@ -79,15 +80,7 @@ interface FooterProps {
 
 export default function Footer({ locale }: FooterProps) {
   const copy = siteTranslations[locale].footer;
-  const bookingSubjects: Record<Locale, string> = {
-    en: "Private Syria journey enquiry",
-    de: "Anfrage für eine private Syrien-Reise",
-    ar: "استفسار عن رحلة خاصة إلى سوريا",
-  };
-  const bookingSubject = bookingSubjects[locale];
-  const bookingLink = `mailto:${contactDetails.bookingEmail}?subject=${encodeURIComponent(
-    bookingSubject,
-  )}`;
+  const bookingLink = localizeAnchor(locale, "#request");
 
   return (
     <footer
@@ -103,7 +96,7 @@ export default function Footer({ locale }: FooterProps) {
         <div className="grid gap-12 border-b border-white/10 pb-12 lg:grid-cols-[1.2fr_0.7fr_1.1fr]">
           <div>
             <Link
-              href="#home"
+              href={homePaths[locale]}
               className="inline-flex items-center gap-4"
               aria-label={`MEDYA TRAVEL – ${siteTranslations[locale].common.home}`}
             >
@@ -150,8 +143,8 @@ export default function Footer({ locale }: FooterProps) {
             >
               {navLinks.map((link) => (
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  key={link.href[locale]}
+                  href={link.href[locale]}
                   className="w-fit text-sm text-white/65 transition hover:text-gold"
                 >
                   {link.label[locale]}
@@ -247,6 +240,21 @@ export default function Footer({ locale }: FooterProps) {
           <p>
             © {new Date().getFullYear()} MEDYA TRAVEL. {copy.rights}
           </p>
+
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            <Link href={legalPaths[locale].imprint} className="transition hover:text-gold">
+              {locale === "de" ? "Impressum" : locale === "ar" ? "بيانات الناشر" : "Imprint"}
+            </Link>
+            <Link href={legalPaths[locale].privacy} className="transition hover:text-gold">
+              {locale === "de" ? "Datenschutzerklärung" : locale === "ar" ? "سياسة الخصوصية" : "Privacy"}
+            </Link>
+            <Link href={legalPaths[locale].cookies} className="transition hover:text-gold">
+              {locale === "de" ? "Cookie-Einstellungen" : locale === "ar" ? "إعدادات ملفات الارتباط" : "Cookie Settings"}
+            </Link>
+            <Link href={legalPaths[locale].terms} className="transition hover:text-gold">
+              {locale === "de" ? "Allgemeine Geschäftsbedingungen" : locale === "ar" ? "الشروط والأحكام" : "Terms & Conditions"}
+            </Link>
+          </div>
 
           <a href={contactDetails.website} className="transition hover:text-gold">
             medyatravel.de

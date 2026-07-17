@@ -13,6 +13,7 @@ import type { PointerEvent } from "react";
 import { assets } from "@/data/assets";
 import HeroVideo from "@/components/HeroVideo";
 import { siteTranslations } from "@/data/translations";
+import { destinationsPaths } from "@/data/routes";
 import type { Locale } from "@/types";
 
 const particles = [
@@ -237,7 +238,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
-                href="#destinations"
+                href={destinationsPaths[locale]}
                 className={`inline-flex min-h-12 items-center justify-center border border-gold bg-gold px-7 text-xs font-semibold uppercase tracking-[0.22em] text-brand transition duration-300 hover:bg-transparent hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${isArabic ? "hero-arabic-button" : ""}`}
               >
                 {copy.destinationsButton}

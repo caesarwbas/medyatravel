@@ -116,7 +116,7 @@ export const siteTranslations: Record<Locale, SiteCopy> = {
       title: "MEDYA TRAVEL Catalogue",
       description: "Explore our luxury journeys.",
       downloadButton: "Download Brochure",
-      itinerariesButton: "Explore Itineraries",
+      itinerariesButton: "View Full Itinerary",
       partnerAlt: "Syrian travel partner logo",
       partnerDescription:
         "Crafted in partnership with trusted local experts to ensure every detail of your Syrian journey meets the highest standards of comfort, quality, and authenticity.",
@@ -196,7 +196,7 @@ export const siteTranslations: Record<Locale, SiteCopy> = {
       title: "MEDYA TRAVEL Reiseprogramm",
       description: "Entdecken Sie unsere exklusiv zusammengestellten Reisen.",
       downloadButton: "Reisebroschüre herunterladen",
-      itinerariesButton: "Reiserouten entdecken",
+      itinerariesButton: "Reiseprogramm ansehen",
       partnerAlt: "Logo unseres syrischen Reisepartners",
       partnerDescription:
         "Gemeinsam mit erfahrenen Partnern vor Ort stellen wir sicher, dass jedes Detail Ihrer Syrien-Reise höchsten Ansprüchen an Komfort, Qualität und Authentizität entspricht.",
@@ -251,7 +251,7 @@ export const siteTranslations: Record<Locale, SiteCopy> = {
       headingLineTwo: "يليق بك",
       description:
         "رحلات مصممة خصيصًا عبر سوريا للمسافرين الذين يقدّرون الأصالة والثقافة والراحة واللقاءات الإنسانية التي لا تُنسى.",
-      destinationsButton: "اكتشف الوجهات",
+      destinationsButton: "اطّلع على الوجهات",
       catalogueButton: "عرض برنامج الرحلة",
       route: "ألمانيا · سوريا",
       floatingLabel: "رحلات ثقافية خاصة",
@@ -276,7 +276,7 @@ export const siteTranslations: Record<Locale, SiteCopy> = {
       title: "برنامج رحلات MEDYA TRAVEL",
       description: "اكتشف رحلاتنا الراقية المصممة بعناية.",
       downloadButton: "تحميل كتيب الرحلة",
-      itinerariesButton: "استكشف مسارات الرحلات",
+      itinerariesButton: "عرض برنامج الرحلة",
       partnerAlt: "شعار شريكنا السياحي في سوريا",
       partnerDescription:
         "نعمل بالشراكة مع خبراء موثوقين داخل سوريا لضمان تنفيذ كل تفصيل في رحلتك بأعلى معايير الراحة والجودة والأصالة.",
