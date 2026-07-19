@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import DestinationsPage from "@/components/DestinationsPage";
-import type { Locale } from "@/types/index";
 
 export const metadata: Metadata = {
   title: "Syria Destinations by Governorate",
@@ -11,8 +10,6 @@ export const metadata: Metadata = {
   },
 };
 
-const pageLocale: Locale = "en";
-
 export default function Page() {
-  return <DestinationsPage locale={pageLocale} />;
+  return <DestinationsPage locale="en" />;
 }
