@@ -7,15 +7,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/ar",
     languages: {
-      en: "/",
-      "de-DE": "/de",
+      "de-DE": "/",
       ar: "/ar",
     },
   },
   openGraph: {
     type: "website",
     locale: "ar_AR",
-    alternateLocale: ["en_GB", "de_DE"],
+    alternateLocale: ["de_DE"],
     url: "https://medyatravel.de/ar",
     siteName: "MEDYA TRAVEL",
     title: "رحلات إلى سوريا | MEDYA TRAVEL ألمانيا",

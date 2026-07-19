@@ -5,22 +5,26 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { assets } from "@/data/assets";
 import { navLinks } from "@/data/navigation";
-import { homePaths, localizeAnchor } from "@/data/routes";
 import { siteTranslations } from "@/data/translations";
 import type { Locale } from "@/types";
 
 interface NavbarProps {
   locale: Locale;
-  languagePaths?: Record<Locale, string>;
 }
 
-const languageCodes: Record<Locale, string> = { en: "EN", de: "DE", ar: "AR" };
-
-export default function Navbar({ locale, languagePaths = homePaths }: NavbarProps) {
+export default function Navbar({ locale }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const copy = siteTranslations[locale];
-  const bookingLink = localizeAnchor(locale, "#request");
+  const languageHref = locale === "de" ? "/ar" : "/";
+  const languageCode = locale === "de" ? "AR" : "DE";
+  const bookingSubject =
+    locale === "de"
+      ? "Anfrage für eine private Syrien-Reise"
+      : "استفسار عن رحلة خاصة إلى سوريا";
+  const bookingLink = `mailto:booking@medyatravel.de?subject=${encodeURIComponent(
+    bookingSubject,
+  )}`;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +60,7 @@ export default function Navbar({ locale, languagePaths = homePaths }: NavbarProp
         className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10"
       >
         <Link
-          href={homePaths[locale]}
+          href="#home"
           onClick={closeMenu}
           className="group flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
           aria-label={`MEDYA TRAVEL – ${copy.common.home}`}
@@ -85,34 +89,21 @@ export default function Navbar({ locale, languagePaths = homePaths }: NavbarProp
         <div className="hidden items-center gap-7 lg:flex">
           {navLinks.map((link) => (
             <Link
-              key={link.href[locale]}
-              href={link.href[locale]}
+              key={link.href}
+              href={link.href}
               className="relative py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-white/75 transition hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
             >
               {link.label[locale]}
             </Link>
           ))}
 
-          <div
+          <Link
+            href={languageHref}
             aria-label={copy.languageSwitchLabel}
-            className="flex items-center rounded-full border border-white/20 p-1"
+            className="flex h-10 min-w-10 items-center justify-center rounded-full border border-white/20 px-3 text-[10px] font-semibold tracking-[0.16em] text-white/75 transition hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
           >
-            {(["en", "de", "ar"] as Locale[]).map((language) => (
-              <Link
-                key={language}
-                href={languagePaths[language]}
-                aria-current={language === locale ? "page" : undefined}
-                aria-label={siteTranslations[language].languageName}
-                className={`flex h-8 min-w-9 items-center justify-center rounded-full px-2 text-[9px] font-semibold tracking-[0.12em] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold ${
-                  language === locale
-                    ? "bg-gold text-brand"
-                    : "text-white/65 hover:text-gold"
-                }`}
-              >
-                {languageCodes[language]}
-              </Link>
-            ))}
-          </div>
+            {languageCode}
+          </Link>
 
           <Link
             href={bookingLink}
@@ -123,27 +114,13 @@ export default function Navbar({ locale, languagePaths = homePaths }: NavbarProp
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <div
+          <Link
+            href={languageHref}
             aria-label={copy.languageSwitchLabel}
-            className="flex items-center rounded-full border border-white/15 bg-white/5 p-1 backdrop-blur-md"
+            className="flex h-11 min-w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 px-3 text-[10px] font-semibold tracking-[0.14em] text-white backdrop-blur-md transition hover:border-gold hover:text-gold"
           >
-            {(["en", "de", "ar"] as Locale[]).map((language) => (
-              <Link
-                key={language}
-                href={languagePaths[language]}
-                onClick={closeMenu}
-                aria-current={language === locale ? "page" : undefined}
-                aria-label={siteTranslations[language].languageName}
-                className={`flex h-8 min-w-8 items-center justify-center rounded-full px-1.5 text-[8px] font-semibold tracking-[0.08em] transition ${
-                  language === locale
-                    ? "bg-gold text-brand"
-                    : "text-white/70 hover:text-gold"
-                }`}
-              >
-                {languageCodes[language]}
-              </Link>
-            ))}
-          </div>
+            {languageCode}
+          </Link>
 
           <button
             type="button"
@@ -185,8 +162,8 @@ export default function Navbar({ locale, languagePaths = homePaths }: NavbarProp
         <div className="mx-auto flex max-w-7xl flex-col px-6 py-7">
           {navLinks.map((link) => (
             <Link
-              key={link.href[locale]}
-              href={link.href[locale]}
+              key={link.href}
+              href={link.href}
               onClick={closeMenu}
               className="border-b border-white/10 py-4 text-sm uppercase tracking-[0.18em] text-white/80 transition hover:text-gold"
             >

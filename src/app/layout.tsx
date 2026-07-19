@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter, Noto_Kufi_Arabic } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -13,27 +13,19 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const notoKufiArabic = Noto_Kufi_Arabic({
-  variable: "--font-arabic",
-  subsets: ["arabic"],
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://medyatravel.de"),
   applicationName: "MEDYA TRAVEL",
   title: {
-    default: "Luxury Travel to Syria | MEDYA TRAVEL Germany",
+    default: "Syrien Reisen & Rundreisen | MEDYA TRAVEL Deutschland",
     template: "%s | MEDYA TRAVEL",
   },
   description:
-    "Discover Syria with MEDYA TRAVEL through carefully curated private journeys, cultural tours, premium stays, and authentic encounters.",
+    "Entdecken Sie Syrien mit MEDYA TRAVEL: sorgfältig geplante Rundreisen, Kulturreisen und individuelle Reiseprogramme ab Deutschland.",
   alternates: {
     canonical: "/",
     languages: {
-      en: "/",
-      "de-DE": "/de",
+      "de-DE": "/",
       ar: "/ar",
     },
   },
@@ -50,27 +42,27 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_GB",
-    alternateLocale: ["de_DE", "ar_AR"],
+    locale: "de_DE",
+    alternateLocale: ["ar_AR"],
     url: "https://medyatravel.de",
     siteName: "MEDYA TRAVEL",
-    title: "Luxury Travel to Syria | MEDYA TRAVEL Germany",
+    title: "Syrien Reisen & Rundreisen | MEDYA TRAVEL Deutschland",
     description:
-      "Carefully curated private journeys and cultural travel experiences across Syria.",
+      "Individuelle Rundreisen und Kulturreisen nach Syrien ab Deutschland.",
     images: [
       {
         url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
-        alt: "MEDYA TRAVEL – Luxury travel to Syria",
+        alt: "MEDYA TRAVEL – Reisen nach Syrien",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Luxury Travel to Syria | MEDYA TRAVEL",
+    title: "Syrien Reisen & Rundreisen | MEDYA TRAVEL",
     description:
-      "Carefully curated private journeys and cultural travel experiences across Syria.",
+      "Individuelle Rundreisen und Kulturreisen nach Syrien ab Deutschland.",
     images: ["/twitter-image.jpg"],
   },
   icons: {
@@ -100,10 +92,10 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="de"
       dir="ltr"
       suppressHydrationWarning
-      className={`${cormorant.variable} ${inter.variable} ${notoKufiArabic.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full overflow-x-hidden bg-brand font-sans text-white">
         {children}

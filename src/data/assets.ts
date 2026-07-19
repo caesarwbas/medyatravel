@@ -1,18 +1,14 @@
 export const assets = {
+  banner:
+    "https://res.cloudinary.com/lclxcm8g/image/upload/v1783898963/ChatGPT_Image_Jul_10_2026_03_01_17_PM_d1eg0g.png",
   profilePicture:
     "https://res.cloudinary.com/lclxcm8g/image/upload/v1783898973/ChatGPT_Image_Jul_10_2026_02_57_14_PM_cavnct.png",
+  logoSlogan:
+    "https://res.cloudinary.com/lclxcm8g/image/upload/v1783899005/Jun_26_2026_01_35_12_PM_gn18iu.png",
   favicon:
     "https://res.cloudinary.com/lclxcm8g/image/upload/v1783941973/Gemini_Generated_Image_27jxkk27jxkk27jx_m7v3kj.png",
   partnerLogo:
     "https://res.cloudinary.com/lclxcm8g/image/upload/v1783899048/Screenshot_2026-07-12_190135_tlslpg.png",
-
-  // Legacy asset keys are intentionally retained so that older files still
-  // present in an existing Git repository can pass TypeScript validation.
-  // The redesigned pages do not render these legacy assets.
-  banner:
-    "https://res.cloudinary.com/lclxcm8g/image/upload/v1783898963/ChatGPT_Image_Jul_10_2026_03_01_17_PM_d1eg0g.png",
-  logoSlogan:
-    "https://res.cloudinary.com/lclxcm8g/image/upload/v1783899005/Jun_26_2026_01_35_12_PM_gn18iu.png",
   backgrounds: {
     primary:
       "https://res.cloudinary.com/lclxcm8g/image/upload/v1783899049/wallpaperflare.com_wallpaper_offtoy.jpg",
@@ -23,8 +19,8 @@ export const assets = {
     "https://res.cloudinary.com/lclxcm8g/image/upload/v1783899046/airplane-flying-in-the-sky-over-the-city-at-sunset-business-travel-concept-airplane-in-flight-at-twilight-with-blurred-cityscape-ai-generated-free-photo_ganmwx.jpg",
   catalogue: {
     title: "First Journey to Syria",
-    subtitle:
-      "Our inaugural curated expedition — a private catalogue of routes, stays, and cultural encounters.",
+    subtitle: "Our inaugural curated expedition — a private catalogue of routes, stays, and cultural encounters.",
+    // Add your PDF URL here when available
     pdfUrl: "",
   },
 } as const;

@@ -1,350 +1,290 @@
 "use client";
 
-import { motion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import HeroMouseReveal from "@/components/HeroMouseReveal";
+import type { PointerEvent } from "react";
 import { assets } from "@/data/assets";
+import { siteTranslations } from "@/data/translations";
+import type { Locale } from "@/types";
 
-type Language = "en" | "de" | "ar";
+const particles = [
+  { left: "8%", top: "18%", size: 3, delay: 0 },
+  { left: "16%", top: "70%", size: 2, delay: 1.2 },
+  { left: "26%", top: "30%", size: 4, delay: 0.5 },
+  { left: "38%", top: "82%", size: 2, delay: 2 },
+  { left: "51%", top: "15%", size: 3, delay: 1.6 },
+  { left: "62%", top: "72%", size: 4, delay: 0.8 },
+  { left: "74%", top: "25%", size: 2, delay: 2.4 },
+  { left: "86%", top: "60%", size: 3, delay: 1 },
+  { left: "92%", top: "18%", size: 2, delay: 2.8 },
+];
 
-interface HeroContent {
-  eyebrow: string;
-  titleFirst: string;
-  titleSecond: string;
-  description: string;
-  destinationsButton: string;
-  catalogueButton: string;
-  location: string;
-  badge: string;
-  destinationsHref: string;
-  catalogueHref: string;
+interface HeroSectionProps {
+  locale: Locale;
 }
 
-const heroContent: Record<
-  Language,
-  HeroContent
-> = {
-  en: {
-    eyebrow: "CURATED JOURNEYS TO SYRIA",
-    titleFirst: "Travel as it",
-    titleSecond: "should be",
-    description:
-      "Bespoke journeys through Syria, created for travelers who value authenticity, culture, comfort, and unforgettable human encounters.",
-    destinationsButton:
-      "Explore Destinations",
-    catalogueButton: "View Itinerary",
-    location: "GERMANY · SYRIA",
-    badge: "PRIVATE CULTURAL JOURNEYS",
-    destinationsHref: "/en/destinations",
-    catalogueHref:
-      "/en/journeys/first-journey-to-syria",
-  },
+export default function HeroSection({ locale }: HeroSectionProps) {
+  const reduceMotion = useReducedMotion();
+  const copy = siteTranslations[locale].hero;
 
-  de: {
-    eyebrow:
-      "KURATIERTE REISEN NACH SYRIEN",
-    titleFirst: "Reisen wie es",
-    titleSecond: "sein sollte",
-    description:
-      "Maßgeschneiderte Reisen durch Syrien für Gäste, die Authentizität, Kultur, Komfort und unvergessliche Begegnungen schätzen.",
-    destinationsButton:
-      "Reiseziele entdecken",
-    catalogueButton:
-      "Reiseprogramm ansehen",
-    location: "DEUTSCHLAND · SYRIEN",
-    badge: "PRIVATE KULTURREISEN",
-    destinationsHref: "/de/reiseziele",
-    catalogueHref:
-      "/de/reisen/erste-syrienreise",
-  },
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
 
-  ar: {
-    eyebrow:
-      "رحلات مختارة بعناية إلى سوريا",
-    titleFirst: "سافر كما",
-    titleSecond: "يليق بك",
-    description:
-      "رحلات مصممة بعناية في سوريا للمسافرين الباحثين عن الأصالة والثقافة والراحة واللقاءات الإنسانية التي لا تُنسى.",
-    destinationsButton:
-      "اطّلع على الوجهات",
-    catalogueButton:
-      "عرض برنامج الرحلة",
-    location: "ألمانيا · سوريا",
-    badge: "رحلات ثقافية خاصة",
-    destinationsHref: "/ar/destinations",
-    catalogueHref:
-      "/ar/journeys/first-journey-to-syria",
-  },
-};
+  const smoothX = useSpring(pointerX, {
+    stiffness: 80,
+    damping: 25,
+    mass: 0.7,
+  });
 
-const fadeUp = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
+  const smoothY = useSpring(pointerY, {
+    stiffness: 80,
+    damping: 25,
+    mass: 0.7,
+  });
 
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
+  const rotateY = useTransform(smoothX, [-1, 1], [-5, 5]);
+  const rotateX = useTransform(smoothY, [-1, 1], [4, -4]);
+  const backgroundX = useTransform(smoothX, [-1, 1], [-18, 18]);
+  const backgroundY = useTransform(smoothY, [-1, 1], [-12, 12]);
+  const logoX = useTransform(smoothX, [-1, 1], [-12, 12]);
+  const logoY = useTransform(smoothY, [-1, 1], [-8, 8]);
+  const contentX = useTransform(smoothX, [-1, 1], [-5, 5]);
+  const contentY = useTransform(smoothY, [-1, 1], [-4, 4]);
 
-    transition: {
-      duration: 1.15,
-      delay,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  }),
-};
+  const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
+    if (reduceMotion || event.pointerType !== "mouse") {
+      return;
+    }
 
-function getLanguage(
-  pathname: string,
-): Language {
-  if (
-    pathname === "/ar" ||
-    pathname.startsWith("/ar/")
-  ) {
-    return "ar";
-  }
+    const rect = event.currentTarget.getBoundingClientRect();
+    const normalizedX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    const normalizedY = ((event.clientY - rect.top) / rect.height) * 2 - 1;
 
-  if (
-    pathname === "/de" ||
-    pathname.startsWith("/de/")
-  ) {
-    return "de";
-  }
+    pointerX.set(normalizedX);
+    pointerY.set(normalizedY);
+  };
 
-  return "en";
-}
-
-export default function HeroSection() {
-  const pathname = usePathname();
-  const language = getLanguage(pathname);
-  const content = heroContent[language];
-  const isArabic = language === "ar";
+  const resetPointer = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+  };
 
   return (
     <section
-      className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-brand"
-      dir={isArabic ? "rtl" : "ltr"}
+      id="home"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetPointer}
+      className="relative min-h-screen overflow-hidden bg-brand"
+      style={{ perspective: "1200px" }}
     >
-      <HeroMouseReveal />
-
-      <div className="relative z-10 mx-auto grid w-full max-w-[1600px] grid-cols-1 items-center gap-10 px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-[minmax(0,1fr)_480px] lg:gap-16 lg:px-14 lg:pb-20 lg:pt-32 xl:px-20">
-        <div
-          className={
-            isArabic
-              ? "max-w-4xl text-right"
-              : "max-w-4xl text-left"
-          }
-        >
-          <motion.div
-            custom={0.1}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className={`mb-7 flex items-center gap-5 ${
-              isArabic
-                ? "justify-start"
-                : "justify-start"
-            }`}
-          >
-            <span className="h-px w-12 bg-gold sm:w-16" />
-
-            <span
-              className={`text-[10px] font-semibold uppercase tracking-[0.35em] text-gold sm:text-xs ${
-                isArabic
-                  ? "font-arabic normal-case tracking-normal sm:text-sm"
-                  : ""
-              }`}
-            >
-              {content.eyebrow}
-            </span>
-          </motion.div>
-
-          <motion.h1
-            custom={0.2}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className={`max-w-4xl text-white ${
-              isArabic
-                ? "font-arabic text-5xl font-bold leading-[1.35] sm:text-6xl md:text-7xl lg:text-8xl"
-                : "font-serif text-5xl leading-[0.98] sm:text-6xl md:text-7xl lg:text-[5.8rem] xl:text-[6.6rem]"
-            }`}
-          >
-            <span className="block drop-shadow-[0_4px_15px_rgba(0,0,0,0.9)]">
-              {content.titleFirst}
-            </span>
-
-            <span
-              className={`mt-2 block text-gold drop-shadow-[0_4px_15px_rgba(0,0,0,0.9)] ${
-                isArabic
-                  ? "font-arabic not-italic"
-                  : "italic"
-              }`}
-            >
-              {content.titleSecond}
-            </span>
-          </motion.h1>
-
-          <motion.p
-            custom={0.4}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className={`mt-8 max-w-3xl text-white drop-shadow-[0_3px_12px_rgba(0,0,0,1)] ${
-              isArabic
-                ? "font-arabic text-lg font-medium leading-9 sm:text-xl sm:leading-10"
-                : "text-base leading-8 sm:text-lg sm:leading-9"
-            }`}
-          >
-            {content.description}
-          </motion.p>
-
-          <motion.div
-            custom={0.6}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
-          >
-            <Link
-              href={content.destinationsHref}
-              className={`inline-flex min-h-14 items-center justify-center bg-gold px-8 text-center text-brand transition duration-300 hover:bg-bronze focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
-                isArabic
-                  ? "font-arabic text-base font-bold"
-                  : "text-xs font-semibold uppercase tracking-[0.25em]"
-              }`}
-            >
-              {content.destinationsButton}
-            </Link>
-
-            <Link
-              href={content.catalogueHref}
-              className={`inline-flex min-h-14 items-center justify-center border border-white/50 bg-black/20 px-8 text-center text-white backdrop-blur-[2px] transition duration-300 hover:border-gold hover:bg-black/40 hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
-                isArabic
-                  ? "font-arabic text-base font-bold"
-                  : "text-xs font-semibold uppercase tracking-[0.25em]"
-              }`}
-            >
-              {content.catalogueButton}
-            </Link>
-          </motion.div>
-
-          <motion.div
-            custom={0.8}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className={`mt-12 flex items-center gap-4 text-white drop-shadow-[0_2px_8px_rgba(0,0,0,1)] ${
-              isArabic
-                ? "font-arabic text-sm font-semibold"
-                : "text-[10px] font-semibold uppercase tracking-[0.3em]"
-            }`}
-          >
-            <span className="h-2 w-2 rounded-full bg-gold shadow-[0_0_15px_rgba(207,169,88,0.9)]" />
-
-            <span>{content.location}</span>
-          </motion.div>
-        </div>
-
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 0.88,
-            y: 25,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 1.3,
-            delay: 0.55,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="hidden items-center justify-center lg:flex"
-        >
-          <div className="relative flex h-[430px] w-[430px] items-center justify-center xl:h-[470px] xl:w-[470px]">
-            <motion.div
-              animate={{
-                rotate: 360,
-              }}
-              transition={{
-                duration: 38,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute inset-0 rounded-full border border-gold/30"
-            />
-
-            <motion.div
-              animate={{
-                rotate: -360,
-              }}
-              transition={{
-                duration: 52,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute inset-[48px] rounded-full border border-dashed border-gold/25"
-            />
-
-            <div className="absolute inset-[86px] rounded-full border border-gold/35 shadow-[0_0_80px_rgba(198,151,55,0.18)]" />
-
-            <div className="relative h-[270px] w-[270px] overflow-hidden rounded-full border border-gold bg-black shadow-[0_25px_70px_rgba(0,0,0,0.75)] xl:h-[300px] xl:w-[300px]">
-              <Image
-                src={assets.favicon}
-                alt="MEDYA TRAVEL"
-                fill
-                priority
-                sizes="300px"
-                className="object-cover"
-              />
-            </div>
-
-            <div
-              className={`absolute -bottom-4 rounded-full border border-white/20 bg-black/75 px-8 py-3 text-white backdrop-blur-md ${
-                isArabic
-                  ? "font-arabic text-sm font-semibold"
-                  : "text-[10px] font-semibold uppercase tracking-[0.3em]"
-              }`}
-            >
-              {content.badge}
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
       <motion.div
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: 1,
-        }}
-        transition={{
-          duration: 1.5,
-          delay: 1.2,
-        }}
-        className="absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 sm:block"
+        aria-hidden="true"
+        className="absolute -inset-8"
+        style={
+          reduceMotion
+            ? undefined
+            : {
+                x: backgroundX,
+                y: backgroundY,
+                scale: 1.06,
+              }
+        }
+        initial={reduceMotion ? false : { scale: 1.14, opacity: 0 }}
+        animate={{ scale: 1.06, opacity: 1 }}
+        transition={{ duration: 2.2, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="flex h-11 w-7 items-start justify-center rounded-full border border-white/40 bg-black/20 p-2 shadow-[0_3px_12px_rgba(0,0,0,0.8)] backdrop-blur-sm">
-          <motion.div
-            animate={{
-              y: [0, 9, 0],
+        <Image
+          src={assets.backgrounds.primary}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </motion.div>
+
+      <div className="absolute inset-0 bg-gradient-to-r from-brand via-brand/80 to-brand/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-brand via-transparent to-brand/45" />
+
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 70% 42%, rgba(199,156,89,0.24), transparent 28%), radial-gradient(circle at 18% 80%, rgba(199,156,89,0.10), transparent 24%)",
+        }}
+      />
+
+      <div aria-hidden="true" className="absolute inset-0">
+        {particles.map((particle) => (
+          <motion.span
+            key={`${particle.left}-${particle.top}`}
+            className="absolute rounded-full bg-gold/70 shadow-[0_0_12px_rgba(199,156,89,0.8)]"
+            style={{
+              left: particle.left,
+              top: particle.top,
+              width: particle.size,
+              height: particle.size,
             }}
+            animate={
+              reduceMotion
+                ? undefined
+                : {
+                    opacity: [0.15, 0.8, 0.15],
+                    y: [0, -14, 0],
+                  }
+            }
             transition={{
-              duration: 2,
+              duration: 4,
+              delay: particle.delay,
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="h-2 w-0.5 rounded-full bg-gold"
           />
+        ))}
+      </div>
+
+      <motion.div
+        className="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-5 pb-16 pt-28 sm:px-8 lg:px-12"
+        style={
+          reduceMotion
+            ? undefined
+            : {
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+              }
+        }
+      >
+        <div className="grid w-full items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
+          <motion.div
+            style={
+              reduceMotion
+                ? undefined
+                : {
+                    x: contentX,
+                    y: contentY,
+                    transform: "translateZ(60px)",
+                  }
+            }
+            initial={reduceMotion ? false : { opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1.2,
+              delay: 0.25,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            <div className="mb-6 flex items-center gap-4">
+              <span className="h-px w-10 bg-gold" />
+              <p className="text-[10px] font-semibold uppercase tracking-[0.38em] text-gold sm:text-xs">
+                {copy.eyebrow}
+              </p>
+            </div>
+
+            <h1 className="max-w-4xl font-serif text-5xl font-light leading-[0.92] text-white sm:text-7xl lg:text-[92px]">
+              {copy.headingLineOne}
+              <span className="block italic text-gold">
+                {copy.headingLineTwo}
+              </span>
+            </h1>
+
+            <p className="mt-7 max-w-xl text-sm leading-7 text-light-gray sm:text-base sm:leading-8">
+              {copy.description}
+            </p>
+
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <Link
+                href="#destinations"
+                className="inline-flex min-h-12 items-center justify-center border border-gold bg-gold px-7 text-xs font-semibold uppercase tracking-[0.22em] text-brand transition duration-300 hover:bg-transparent hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+              >
+                {copy.destinationsButton}
+              </Link>
+
+              <Link
+                href="#catalogue"
+                className="inline-flex min-h-12 items-center justify-center border border-white/30 bg-white/5 px-7 text-xs font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md transition duration-300 hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+              >
+                {copy.catalogueButton}
+              </Link>
+            </div>
+
+            <div className="mt-12 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-white/55">
+              <span className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_12px_rgba(199,156,89,0.9)]" />
+              {copy.route}
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="relative mx-auto hidden aspect-square w-full max-w-md items-center justify-center lg:flex"
+            style={
+              reduceMotion
+                ? undefined
+                : {
+                    x: logoX,
+                    y: logoY,
+                    transformStyle: "preserve-3d",
+                    transform: "translateZ(100px)",
+                  }
+            }
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.75 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 1.5,
+              delay: 0.45,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            <motion.div
+              aria-hidden="true"
+              className="absolute inset-[5%] rounded-full border border-gold/25"
+              animate={reduceMotion ? undefined : { rotate: 360 }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            />
+
+            <motion.div
+              aria-hidden="true"
+              className="absolute inset-[14%] rounded-full border border-dashed border-gold/35"
+              animate={reduceMotion ? undefined : { rotate: -360 }}
+              transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+            />
+
+            <div
+              aria-hidden="true"
+              className="absolute inset-[20%] rounded-full bg-gold/15 blur-3xl"
+            />
+
+            <motion.div
+              className="relative h-60 w-60 overflow-hidden rounded-full border border-gold/70 bg-brand/70 p-2 shadow-[0_0_80px_rgba(199,156,89,0.28)] backdrop-blur-xl"
+              animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <div className="relative h-full w-full overflow-hidden rounded-full">
+                <Image
+                  src={assets.favicon}
+                  alt="MEDYA TRAVEL"
+                  fill
+                  sizes="240px"
+                  className="object-cover"
+                />
+              </div>
+            </motion.div>
+
+            <div className="absolute bottom-[3%] left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-brand/55 px-5 py-2 text-[9px] uppercase tracking-[0.32em] text-white/70 backdrop-blur-xl">
+              {copy.floatingLabel}
+            </div>
+          </motion.div>
         </div>
       </motion.div>
+
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/45 to-transparent" />
     </section>
   );
 }

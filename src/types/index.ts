@@ -1,4 +1,4 @@
-export type Locale = "en" | "de" | "ar";
+export type Locale = "de" | "ar";
 
 export type LocalizedText = Record<Locale, string>;
 
@@ -20,5 +20,5 @@ export interface GalleryImage {
 
 export interface NavLink {
   label: LocalizedText;
-  href: LocalizedText;
+  href: string;
 }
