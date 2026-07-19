@@ -84,7 +84,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       id="home"
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
-      className="relative min-h-screen overflow-hidden bg-brand"
+      className="relative min-h-screen overflow-hidden"
       style={{ perspective: "1200px" }}
     >
       <HeroSpotlight />
@@ -106,8 +106,8 @@ export default function HeroSection({ locale }: HeroSectionProps) {
         <div className="absolute -left-28 bottom-[8%] h-72 w-72 rounded-full bg-white/5 blur-[110px]" />
       </motion.div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-brand via-brand/80 to-brand/30" />
-      <div className="absolute inset-0 bg-gradient-to-t from-brand via-transparent to-brand/45" />
+      <div className="absolute inset-0 bg-gradient-to-r from-brand/85 via-brand/55 to-brand/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-brand/80 via-transparent to-brand/35" />
 
       <div
         aria-hidden="true"
