@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { PointerEvent } from "react";
 import { assets } from "@/data/assets";
-import HeroVideo from "@/components/HeroVideo";
+import HeroSpotlight from "@/components/HeroSpotlight";
 import { siteTranslations } from "@/data/translations";
 import { destinationsPaths } from "@/data/routes";
 import type { Locale } from "@/types";
@@ -54,10 +54,6 @@ export default function HeroSection({ locale }: HeroSectionProps) {
 
   const rotateY = useTransform(smoothX, [-1, 1], [-5, 5]);
   const rotateX = useTransform(smoothY, [-1, 1], [4, -4]);
-  const backgroundX = useTransform(smoothX, [-1, 1], [-24, 24]);
-  const backgroundY = useTransform(smoothY, [-1, 1], [-16, 16]);
-  const videoRotateY = useTransform(smoothX, [-1, 1], [-1.6, 1.6]);
-  const videoRotateX = useTransform(smoothY, [-1, 1], [1.15, -1.15]);
   const glowX = useTransform(smoothX, [-1, 1], [28, -28]);
   const glowY = useTransform(smoothY, [-1, 1], [18, -18]);
   const logoX = useTransform(smoothX, [-1, 1], [-12, 12]);
@@ -91,27 +87,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
       className="relative min-h-screen overflow-hidden bg-brand"
       style={{ perspective: "1200px" }}
     >
-      <motion.div
-        aria-hidden="true"
-        className="absolute -inset-10 origin-center will-change-transform"
-        style={
-          reduceMotion
-            ? { scale: 1.1 }
-            : {
-                x: backgroundX,
-                y: backgroundY,
-                rotateX: videoRotateX,
-                rotateY: videoRotateY,
-                scale: 1.12,
-                transformStyle: "preserve-3d",
-              }
-        }
-        initial={reduceMotion ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <HeroVideo />
-      </motion.div>
+      <HeroSpotlight />
 
       <motion.div
         aria-hidden="true"
