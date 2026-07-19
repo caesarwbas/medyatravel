@@ -75,6 +75,86 @@ type SiteCopy = {
 };
 
 export const siteTranslations: Record<Locale, SiteCopy> = {
+  en: {
+    languageName: "English",
+    languageSwitchLabel: "Show language options",
+    common: {
+      home: "Home",
+      mainNavigation: "Main navigation",
+      openMenu: "Open navigation menu",
+      closeMenu: "Close navigation menu",
+      bookNow: "Book your journey",
+    },
+    hero: {
+      eyebrow: "Carefully curated journeys to Syria",
+      headingLineOne: "Travel as it",
+      headingLineTwo: "should be",
+      description:
+        "Bespoke journeys through Syria for travelers who value authenticity, culture, comfort and unforgettable human encounters.",
+      destinationsButton: "Explore destinations",
+      catalogueButton: "View itinerary",
+      route: "Germany · Syria",
+      floatingLabel: "Private cultural journeys",
+    },
+    destinations: {
+      eyebrow: "Destinations",
+      title: "Extraordinary places",
+      description:
+        "From ancient cities to sunlit coastlines, discover Syria’s most captivating destinations through an exceptionally curated travel experience.",
+    },
+    experiences: {
+      eyebrow: "Experiences",
+      title: "Rediscover Syria",
+      description:
+        "From remarkable cultural landmarks to elegant Mediterranean retreats, every journey is shaped with a curator’s eye and the care of a private host.",
+      arrivalEyebrow: "Arrive in comfort",
+      arrivalTitle: "Private flights and transfers with first-class service",
+      airplaneAlt: "An exclusive business journey by aircraft at sunset",
+    },
+    catalogue: {
+      eyebrow: "Itinerary",
+      title: "MEDYA TRAVEL itinerary",
+      description: "Discover our carefully curated private journeys.",
+      downloadButton: "Download travel brochure",
+      itinerariesButton: "Explore itineraries",
+      partnerAlt: "Logo of our Syrian travel partner",
+      partnerDescription:
+        "Together with experienced local partners, we ensure that every detail of your journey through Syria meets the highest standards of comfort, quality and authenticity.",
+    },
+    about: {
+      eyebrow: "About us",
+      title: "A new standard for travel to Syria",
+      paragraphOne:
+        "MEDYA TRAVEL was founded on a clear belief: Syria should not simply be visited, but experienced in its full depth. We create private journeys for travelers who value discretion, cultural substance and uncompromising comfort.",
+      paragraphTwo:
+        "Every itinerary is personally curated, from historic walks through Damascus to sunset dinners on the Mediterranean coast, planned with precision, delivered with style and enriched by genuine Syrian hospitality.",
+      founderAlt: "Portrait of the founder of MEDYA TRAVEL",
+      partnerAlt: "Logo of the official Syrian partner",
+      partnerLabel: "Official partner in Syria",
+    },
+    footer: {
+      slogan: "Travel as it should be",
+      description:
+        "Carefully curated private journeys through Syria, connecting travelers from Germany with its history, culture, hospitality and extraordinary human encounters.",
+      planJourney: "Book your journey",
+      navigate: "Navigate",
+      contact: "Contact",
+      generalEnquiries: "General enquiries",
+      bookings: "Bookings",
+      whatsapp: "WhatsApp",
+      instagramAria: "MEDYA TRAVEL on Instagram",
+      facebookAria: "MEDYA TRAVEL on Facebook",
+      rights: "All rights reserved.",
+      navigationAria: "Footer navigation",
+    },
+    socialDock: {
+      aria: "Contact MEDYA TRAVEL",
+      whatsapp: "WhatsApp",
+      instagram: "Instagram",
+      facebook: "Facebook",
+      email: "Email",
+    },
+  },
   de: {
     languageName: "Deutsch",
     languageSwitchLabel: "Arabisch anzeigen",
