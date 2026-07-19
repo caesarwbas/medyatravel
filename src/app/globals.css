@@ -131,3 +131,9 @@ body {
     font-size: 1rem;
   }
 }
+
+/* ==========================================================================
+ * The old `.hero-video-reveal` CSS-mask class has been INTENTIONALLY REMOVED.
+ * The redesigned <HeroSection> now uses a JS-driven canvas mask inside
+ * <HeroSpotlight /> for a richer parallax grid + radial spotlight effect.
+ * ========================================================================== */
