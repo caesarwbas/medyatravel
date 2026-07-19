@@ -77,66 +77,66 @@ type SiteCopy = {
 export const siteTranslations: Record<Locale, SiteCopy> = {
   en: {
     languageName: "English",
-    languageSwitchLabel: "Show language options",
+    languageSwitchLabel: "Change language",
     common: {
       home: "Home",
       mainNavigation: "Main navigation",
       openMenu: "Open navigation menu",
       closeMenu: "Close navigation menu",
-      bookNow: "Book your journey",
+      bookNow: "Book Now",
     },
     hero: {
-      eyebrow: "Carefully curated journeys to Syria",
-      headingLineOne: "Travel as it",
-      headingLineTwo: "should be",
+      eyebrow: "Curated journeys to Syria",
+      headingLineOne: "Reisen wie es",
+      headingLineTwo: "sein sollte",
       description:
-        "Bespoke journeys through Syria for travelers who value authenticity, culture, comfort and unforgettable human encounters.",
-      destinationsButton: "Explore destinations",
-      catalogueButton: "View itinerary",
+        "Bespoke journeys through Syria, created for travelers who value authenticity, culture, comfort, and unforgettable human encounters.",
+      destinationsButton: "Explore Destinations",
+      catalogueButton: "View Catalogue",
       route: "Germany · Syria",
       floatingLabel: "Private cultural journeys",
     },
     destinations: {
       eyebrow: "Destinations",
-      title: "Extraordinary places",
+      title: "Extraordinary Places",
       description:
-        "From ancient cities to sunlit coastlines, discover Syria’s most captivating destinations through an exceptionally curated travel experience.",
+        "From ancient capitals to sun-drenched coastlines, discover Syria's most captivating destinations through the lens of luxury travel.",
     },
     experiences: {
       eyebrow: "Experiences",
-      title: "Rediscover Syria",
+      title: "Syria, Unveiled",
       description:
-        "From remarkable cultural landmarks to elegant Mediterranean retreats, every journey is shaped with a curator’s eye and the care of a private host.",
-      arrivalEyebrow: "Arrive in comfort",
-      arrivalTitle: "Private flights and transfers with first-class service",
-      airplaneAlt: "An exclusive business journey by aircraft at sunset",
+        "From sacred heritage sites to refined coastal escapes — every journey is composed with the eye of a curator and the care of a private concierge.",
+      arrivalEyebrow: "Seamless Arrival",
+      arrivalTitle: "Private aviation & white-glove transfers",
+      airplaneAlt: "Luxury business travel with an airplane in flight at sunset",
     },
     catalogue: {
-      eyebrow: "Itinerary",
-      title: "MEDYA TRAVEL itinerary",
-      description: "Discover our carefully curated private journeys.",
-      downloadButton: "Download travel brochure",
-      itinerariesButton: "Explore itineraries",
-      partnerAlt: "Logo of our Syrian travel partner",
+      eyebrow: "Catalogue",
+      title: "MEDYA TRAVEL Catalogue",
+      description: "Explore our luxury journeys.",
+      downloadButton: "Download Brochure",
+      itinerariesButton: "View Full Itinerary",
+      partnerAlt: "Syrian travel partner logo",
       partnerDescription:
-        "Together with experienced local partners, we ensure that every detail of your journey through Syria meets the highest standards of comfort, quality and authenticity.",
+        "Crafted in partnership with trusted local experts to ensure every detail of your Syrian journey meets the highest standards of comfort, quality, and authenticity.",
     },
     about: {
-      eyebrow: "About us",
-      title: "A new standard for travel to Syria",
+      eyebrow: "About Us",
+      title: "A New Standard in Syrian Travel",
       paragraphOne:
-        "MEDYA TRAVEL was founded on a clear belief: Syria should not simply be visited, but experienced in its full depth. We create private journeys for travelers who value discretion, cultural substance and uncompromising comfort.",
+        "MEDYA TRAVEL was founded on a singular belief: that Syria deserves to be experienced not as a destination, but as a revelation. We design private journeys for travelers who value discretion, cultural depth, and uncompromising comfort.",
       paragraphTwo:
-        "Every itinerary is personally curated, from historic walks through Damascus to sunset dinners on the Mediterranean coast, planned with precision, delivered with style and enriched by genuine Syrian hospitality.",
-      founderAlt: "Portrait of the founder of MEDYA TRAVEL",
-      partnerAlt: "Logo of the official Syrian partner",
-      partnerLabel: "Official partner in Syria",
+        "Every itinerary is personally composed — from heritage walks through Damascus to sunset dinners on the Mediterranean coast — with the precision of a luxury maison and the warmth of a trusted guide.",
+      founderAlt: "MEDYA TRAVEL founder profile",
+      partnerAlt: "Official Syrian partner logo",
+      partnerLabel: "Official Syrian Partner",
     },
     footer: {
       slogan: "Travel as it should be",
       description:
-        "Carefully curated private journeys through Syria, connecting travelers from Germany with its history, culture, hospitality and extraordinary human encounters.",
-      planJourney: "Book your journey",
+        "Bespoke private journeys through Syria, connecting travelers from Germany with the country's history, culture, hospitality, and extraordinary human encounters.",
+      planJourney: "Plan Your Journey",
       navigate: "Navigate",
       contact: "Contact",
       generalEnquiries: "General enquiries",
@@ -157,7 +157,7 @@ export const siteTranslations: Record<Locale, SiteCopy> = {
   },
   de: {
     languageName: "Deutsch",
-    languageSwitchLabel: "Arabisch anzeigen",
+    languageSwitchLabel: "Sprache wechseln",
     common: {
       home: "Startseite",
       mainNavigation: "Hauptnavigation",
@@ -196,7 +196,7 @@ export const siteTranslations: Record<Locale, SiteCopy> = {
       title: "MEDYA TRAVEL Reiseprogramm",
       description: "Entdecken Sie unsere exklusiv zusammengestellten Reisen.",
       downloadButton: "Reisebroschüre herunterladen",
-      itinerariesButton: "Reiserouten entdecken",
+      itinerariesButton: "Reiseprogramm ansehen",
       partnerAlt: "Logo unseres syrischen Reisepartners",
       partnerDescription:
         "Gemeinsam mit erfahrenen Partnern vor Ort stellen wir sicher, dass jedes Detail Ihrer Syrien-Reise höchsten Ansprüchen an Komfort, Qualität und Authentizität entspricht.",
@@ -237,7 +237,7 @@ export const siteTranslations: Record<Locale, SiteCopy> = {
   },
   ar: {
     languageName: "العربية",
-    languageSwitchLabel: "عرض الموقع بالألمانية",
+    languageSwitchLabel: "تغيير اللغة",
     common: {
       home: "الصفحة الرئيسية",
       mainNavigation: "القائمة الرئيسية",
@@ -251,7 +251,7 @@ export const siteTranslations: Record<Locale, SiteCopy> = {
       headingLineTwo: "يليق بك",
       description:
         "رحلات مصممة خصيصًا عبر سوريا للمسافرين الذين يقدّرون الأصالة والثقافة والراحة واللقاءات الإنسانية التي لا تُنسى.",
-      destinationsButton: "اكتشف الوجهات",
+      destinationsButton: "اطّلع على الوجهات",
       catalogueButton: "عرض برنامج الرحلة",
       route: "ألمانيا · سوريا",
       floatingLabel: "رحلات ثقافية خاصة",
@@ -276,7 +276,7 @@ export const siteTranslations: Record<Locale, SiteCopy> = {
       title: "برنامج رحلات MEDYA TRAVEL",
       description: "اكتشف رحلاتنا الراقية المصممة بعناية.",
       downloadButton: "تحميل كتيب الرحلة",
-      itinerariesButton: "استكشف مسارات الرحلات",
+      itinerariesButton: "عرض برنامج الرحلة",
       partnerAlt: "شعار شريكنا السياحي في سوريا",
       partnerDescription:
         "نعمل بالشراكة مع خبراء موثوقين داخل سوريا لضمان تنفيذ كل تفصيل في رحلتك بأعلى معايير الراحة والجودة والأصالة.",

@@ -2,92 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 import { assets } from "@/data/assets";
 import { navLinks } from "@/data/navigation";
+import { homePaths, localizeAnchor } from "@/data/routes";
 import { siteTranslations } from "@/data/translations";
 import type { Locale } from "@/types";
 
 interface NavbarProps {
   locale: Locale;
-  languagePaths?: Partial<Record<Locale, string>>;
+  languagePaths?: Record<Locale, string>;
 }
 
-interface LanguageOption {
-  code: Locale;
-  shortLabel: string;
-  label: string;
-  defaultHref: string;
-}
+const languageCodes: Record<Locale, string> = { en: "EN", de: "DE", ar: "AR" };
 
-const languages: LanguageOption[] = [
-  {
-    code: "en",
-    shortLabel: "EN",
-    label: "English",
-    defaultHref: "/",
-  },
-  {
-    code: "de",
-    shortLabel: "DE",
-    label: "Deutsch",
-    defaultHref: "/de",
-  },
-  {
-    code: "ar",
-    shortLabel: "AR",
-    label: "العربية",
-    defaultHref: "/ar",
-  },
-];
-
-const bookingSubjects: Record<Locale, string> = {
-  en: "Private Syria Journey Enquiry",
-  de: "Anfrage für eine private Syrien-Reise",
-  ar: "استفسار عن رحلة خاصة إلى سوريا",
-};
-
-export default function Navbar({
-  locale,
-  languagePaths,
-}: NavbarProps) {
-  const [isScrolled, setIsScrolled] =
-    useState(false);
-
-  const [isMenuOpen, setIsMenuOpen] =
-    useState(false);
-
-  const [
-    isLanguageMenuOpen,
-    setIsLanguageMenuOpen,
-  ] = useState(false);
-
-  const languageMenuRef =
-    useRef<HTMLDivElement>(null);
-
+export default function Navbar({ locale, languagePaths = homePaths }: NavbarProps) {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const copy = siteTranslations[locale];
-
-  const bookingLink = `mailto:booking@medyatravel.de?subject=${encodeURIComponent(
-    bookingSubjects[locale],
-  )}`;
-
-  const currentLanguage =
-    languages.find(
-      (language) => language.code === locale,
-    ) ?? languages[0];
-
-  const getLanguageHref = (
-    language: LanguageOption,
-  ) => {
-    return (
-      languagePaths?.[language.code] ??
-      language.defaultHref
-    );
-  };
+  const bookingLink = localizeAnchor(locale, "#request");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -95,100 +28,25 @@ export default function Navbar({
     };
 
     handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-    window.addEventListener(
-      "scroll",
-      handleScroll,
-      {
-        passive: true,
-      },
-    );
-
-    return () => {
-      window.removeEventListener(
-        "scroll",
-        handleScroll,
-      );
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow =
-      isMenuOpen ? "hidden" : "";
+    document.body.style.overflow = isMenuOpen ? "hidden" : "";
 
     return () => {
       document.body.style.overflow = "";
     };
   }, [isMenuOpen]);
 
-  useEffect(() => {
-    const handlePointerDown = (
-      event: MouseEvent,
-    ) => {
-      const target = event.target as Node;
-
-      if (
-        languageMenuRef.current &&
-        !languageMenuRef.current.contains(target)
-      ) {
-        setIsLanguageMenuOpen(false);
-      }
-    };
-
-    const handleEscape = (
-      event: KeyboardEvent,
-    ) => {
-      if (event.key === "Escape") {
-        setIsLanguageMenuOpen(false);
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener(
-      "mousedown",
-      handlePointerDown,
-    );
-
-    document.addEventListener(
-      "keydown",
-      handleEscape,
-    );
-
-    return () => {
-      document.removeEventListener(
-        "mousedown",
-        handlePointerDown,
-      );
-
-      document.removeEventListener(
-        "keydown",
-        handleEscape,
-      );
-    };
-  }, []);
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-    setIsLanguageMenuOpen(false);
-  };
-
-  const toggleMobileMenu = () => {
-    setIsMenuOpen((open) => !open);
-    setIsLanguageMenuOpen(false);
-  };
-
-  const toggleLanguageMenu = () => {
-    setIsLanguageMenuOpen(
-      (open) => !open,
-    );
-  };
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        isScrolled ||
-        isMenuOpen ||
-        isLanguageMenuOpen
+        isScrolled || isMenuOpen
           ? "border-b border-white/10 bg-brand/90 shadow-2xl backdrop-blur-xl"
           : "bg-gradient-to-b from-brand/80 to-transparent"
       }`}
@@ -198,7 +56,7 @@ export default function Navbar({
         className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10"
       >
         <Link
-          href="#home"
+          href={homePaths[locale]}
           onClick={closeMenu}
           className="group flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
           aria-label={`MEDYA TRAVEL – ${copy.common.home}`}
@@ -218,14 +76,7 @@ export default function Navbar({
             <span className="block font-serif text-lg tracking-[0.12em] text-white">
               MEDYA TRAVEL
             </span>
-
-            <span
-              className={`block text-[8px] text-gold ${
-                locale === "ar"
-                  ? "font-arabic font-semibold tracking-normal"
-                  : "uppercase tracking-[0.32em]"
-              }`}
-            >
+            <span className="block text-[8px] uppercase tracking-[0.32em] text-gold">
               {copy.hero.route}
             </span>
           </span>
@@ -234,130 +85,38 @@ export default function Navbar({
         <div className="hidden items-center gap-7 lg:flex">
           {navLinks.map((link) => (
             <Link
-              key={link.href}
-              href={link.href}
-              className={`relative py-2 text-white/75 transition hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
-                locale === "ar"
-                  ? "font-arabic text-sm font-semibold"
-                  : "text-[11px] font-medium uppercase tracking-[0.18em]"
-              }`}
+              key={link.href[locale]}
+              href={link.href[locale]}
+              className="relative py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-white/75 transition hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
             >
               {link.label[locale]}
             </Link>
           ))}
 
           <div
-            ref={languageMenuRef}
-            className="relative"
+            aria-label={copy.languageSwitchLabel}
+            className="flex items-center rounded-full border border-white/20 p-1"
           >
-            <button
-              type="button"
-              onClick={toggleLanguageMenu}
-              aria-label={
-                copy.languageSwitchLabel
-              }
-              aria-expanded={
-                isLanguageMenuOpen
-              }
-              aria-haspopup="menu"
-              aria-controls="desktop-language-menu"
-              className="flex h-10 min-w-[62px] items-center justify-center gap-2 rounded-full border border-white/20 px-3 text-[10px] font-semibold tracking-[0.14em] text-white/80 transition hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
-            >
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                className="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="9"
-                />
-
-                <path d="M3 12h18" />
-
-                <path d="M12 3c2.5 2.5 4 5.6 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.6-4-9s1.5-6.5 4-9Z" />
-              </svg>
-
-              <span>
-                {currentLanguage.shortLabel}
-              </span>
-
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 20 20"
-                className={`h-3 w-3 transition-transform duration-300 ${
-                  isLanguageMenuOpen
-                    ? "rotate-180"
-                    : ""
+            {(["en", "de", "ar"] as Locale[]).map((language) => (
+              <Link
+                key={language}
+                href={languagePaths[language]}
+                aria-current={language === locale ? "page" : undefined}
+                aria-label={siteTranslations[language].languageName}
+                className={`flex h-8 min-w-9 items-center justify-center rounded-full px-2 text-[9px] font-semibold tracking-[0.12em] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold ${
+                  language === locale
+                    ? "bg-gold text-brand"
+                    : "text-white/65 hover:text-gold"
                 }`}
-                fill="currentColor"
               >
-                <path d="m5.5 7.5 4.5 4.5 4.5-4.5" />
-              </svg>
-            </button>
-
-            <div
-              id="desktop-language-menu"
-              role="menu"
-              aria-hidden={
-                !isLanguageMenuOpen
-              }
-              className={`absolute right-0 top-[calc(100%+12px)] min-w-[180px] overflow-hidden rounded-2xl border border-white/10 bg-brand/95 p-2 shadow-2xl backdrop-blur-2xl transition-all duration-300 ${
-                isLanguageMenuOpen
-                  ? "visible translate-y-0 opacity-100"
-                  : "invisible -translate-y-2 opacity-0"
-              }`}
-            >
-              {languages.map(
-                (language) => {
-                  const isCurrent =
-                    language.code === locale;
-
-                  return (
-                    <Link
-                      key={language.code}
-                      href={getLanguageHref(
-                        language,
-                      )}
-                      role="menuitem"
-                      onClick={closeMenu}
-                      className={`flex min-h-11 items-center justify-between rounded-xl px-4 transition ${
-                        isCurrent
-                          ? "bg-gold text-brand"
-                          : "text-white/80 hover:bg-white/5 hover:text-gold"
-                      } ${
-                        language.code === "ar"
-                          ? "font-arabic text-sm font-semibold"
-                          : "text-xs font-semibold tracking-[0.08em]"
-                      }`}
-                    >
-                      <span>
-                        {language.label}
-                      </span>
-
-                      <span className="text-[10px] font-bold">
-                        {
-                          language.shortLabel
-                        }
-                      </span>
-                    </Link>
-                  );
-                },
-              )}
-            </div>
+                {languageCodes[language]}
+              </Link>
+            ))}
           </div>
 
           <Link
             href={bookingLink}
-            className={`border border-gold bg-gold px-5 py-3 text-brand transition duration-300 hover:bg-transparent hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
-              locale === "ar"
-                ? "font-arabic text-sm font-bold"
-                : "text-[10px] font-semibold uppercase tracking-[0.2em]"
-            }`}
+            className="border border-gold bg-gold px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-brand transition duration-300 hover:bg-transparent hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
           >
             {copy.common.bookNow}
           </Link>
@@ -365,130 +124,50 @@ export default function Navbar({
 
         <div className="flex items-center gap-2 lg:hidden">
           <div
-            className="relative"
-            ref={languageMenuRef}
+            aria-label={copy.languageSwitchLabel}
+            className="flex items-center rounded-full border border-white/15 bg-white/5 p-1 backdrop-blur-md"
           >
-            <button
-              type="button"
-              onClick={toggleLanguageMenu}
-              aria-label={
-                copy.languageSwitchLabel
-              }
-              aria-expanded={
-                isLanguageMenuOpen
-              }
-              aria-haspopup="menu"
-              aria-controls="mobile-language-menu"
-              className="flex h-11 min-w-[58px] items-center justify-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 text-[10px] font-semibold tracking-[0.12em] text-white backdrop-blur-md transition hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
-            >
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                className="h-4 w-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
+            {(["en", "de", "ar"] as Locale[]).map((language) => (
+              <Link
+                key={language}
+                href={languagePaths[language]}
+                onClick={closeMenu}
+                aria-current={language === locale ? "page" : undefined}
+                aria-label={siteTranslations[language].languageName}
+                className={`flex h-8 min-w-8 items-center justify-center rounded-full px-1.5 text-[8px] font-semibold tracking-[0.08em] transition ${
+                  language === locale
+                    ? "bg-gold text-brand"
+                    : "text-white/70 hover:text-gold"
+                }`}
               >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="9"
-                />
-
-                <path d="M3 12h18" />
-
-                <path d="M12 3c2.5 2.5 4 5.6 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.6-4-9s1.5-6.5 4-9Z" />
-              </svg>
-
-              <span>
-                {currentLanguage.shortLabel}
-              </span>
-            </button>
-
-            <div
-              id="mobile-language-menu"
-              role="menu"
-              aria-hidden={
-                !isLanguageMenuOpen
-              }
-              className={`absolute right-0 top-[calc(100%+10px)] min-w-[175px] overflow-hidden rounded-2xl border border-white/10 bg-brand/95 p-2 shadow-2xl backdrop-blur-2xl transition-all duration-300 ${
-                isLanguageMenuOpen
-                  ? "visible translate-y-0 opacity-100"
-                  : "invisible -translate-y-2 opacity-0"
-              }`}
-            >
-              {languages.map(
-                (language) => {
-                  const isCurrent =
-                    language.code === locale;
-
-                  return (
-                    <Link
-                      key={language.code}
-                      href={getLanguageHref(
-                        language,
-                      )}
-                      role="menuitem"
-                      onClick={closeMenu}
-                      className={`flex min-h-11 items-center justify-between rounded-xl px-4 transition ${
-                        isCurrent
-                          ? "bg-gold text-brand"
-                          : "text-white/80 hover:bg-white/5 hover:text-gold"
-                      } ${
-                        language.code === "ar"
-                          ? "font-arabic text-sm font-semibold"
-                          : "text-xs font-semibold tracking-[0.08em]"
-                      }`}
-                    >
-                      <span>
-                        {language.label}
-                      </span>
-
-                      <span className="text-[10px] font-bold">
-                        {
-                          language.shortLabel
-                        }
-                      </span>
-                    </Link>
-                  );
-                },
-              )}
-            </div>
+                {languageCodes[language]}
+              </Link>
+            ))}
           </div>
 
           <button
             type="button"
-            onClick={toggleMobileMenu}
-            className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-md transition hover:border-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-full border border-white/15 bg-white/5 backdrop-blur-md lg:hidden"
             aria-label={
-              isMenuOpen
-                ? copy.common.closeMenu
-                : copy.common.openMenu
+              isMenuOpen ? copy.common.closeMenu : copy.common.openMenu
             }
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation"
           >
             <span
               className={`h-px w-5 bg-white transition duration-300 ${
-                isMenuOpen
-                  ? "translate-y-[7px] rotate-45"
-                  : ""
+                isMenuOpen ? "translate-y-2 rotate-45" : ""
               }`}
             />
-
             <span
               className={`h-px w-5 bg-white transition duration-300 ${
-                isMenuOpen
-                  ? "opacity-0"
-                  : ""
+                isMenuOpen ? "opacity-0" : ""
               }`}
             />
-
             <span
               className={`h-px w-5 bg-white transition duration-300 ${
-                isMenuOpen
-                  ? "-translate-y-[7px] -rotate-45"
-                  : ""
+                isMenuOpen ? "-translate-y-2 -rotate-45" : ""
               }`}
             />
           </button>
@@ -497,87 +176,28 @@ export default function Navbar({
 
       <div
         id="mobile-navigation"
-        aria-hidden={!isMenuOpen}
         className={`overflow-hidden border-t border-white/10 bg-brand/95 backdrop-blur-2xl transition-all duration-500 lg:hidden ${
           isMenuOpen
-            ? "max-h-[620px] opacity-100"
+            ? "max-h-[520px] opacity-100"
             : "pointer-events-none max-h-0 opacity-0"
         }`}
       >
-        <div
-          className={`mx-auto flex max-w-7xl flex-col px-6 py-7 ${
-            locale === "ar"
-              ? "text-right"
-              : "text-left"
-          }`}
-          dir={
-            locale === "ar"
-              ? "rtl"
-              : "ltr"
-          }
-        >
+        <div className="mx-auto flex max-w-7xl flex-col px-6 py-7">
           {navLinks.map((link) => (
             <Link
-              key={link.href}
-              href={link.href}
+              key={link.href[locale]}
+              href={link.href[locale]}
               onClick={closeMenu}
-              tabIndex={
-                isMenuOpen ? 0 : -1
-              }
-              className={`border-b border-white/10 py-4 text-white/80 transition hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
-                locale === "ar"
-                  ? "font-arabic text-base font-semibold"
-                  : "text-sm uppercase tracking-[0.18em]"
-              }`}
+              className="border-b border-white/10 py-4 text-sm uppercase tracking-[0.18em] text-white/80 transition hover:text-gold"
             >
               {link.label[locale]}
             </Link>
           ))}
 
-          <div className="mt-6 grid grid-cols-3 gap-2">
-            {languages.map(
-              (language) => {
-                const isCurrent =
-                  language.code === locale;
-
-                return (
-                  <Link
-                    key={language.code}
-                    href={getLanguageHref(
-                      language,
-                    )}
-                    onClick={closeMenu}
-                    tabIndex={
-                      isMenuOpen ? 0 : -1
-                    }
-                    className={`flex min-h-12 items-center justify-center rounded-xl border text-center transition ${
-                      isCurrent
-                        ? "border-gold bg-gold text-brand"
-                        : "border-white/15 bg-white/5 text-white/75 hover:border-gold hover:text-gold"
-                    } ${
-                      language.code === "ar"
-                        ? "font-arabic text-sm font-bold"
-                        : "text-xs font-semibold tracking-[0.12em]"
-                    }`}
-                  >
-                    {language.shortLabel}
-                  </Link>
-                );
-              },
-            )}
-          </div>
-
           <Link
             href={bookingLink}
             onClick={closeMenu}
-            tabIndex={
-              isMenuOpen ? 0 : -1
-            }
-            className={`mt-6 inline-flex min-h-12 items-center justify-center bg-gold px-6 text-brand transition hover:bg-bronze focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold ${
-              locale === "ar"
-                ? "font-arabic text-base font-bold"
-                : "text-xs font-semibold uppercase tracking-[0.2em]"
-            }`}
+            className="mt-6 inline-flex min-h-12 items-center justify-center bg-gold px-6 text-xs font-semibold uppercase tracking-[0.2em] text-brand"
           >
             {copy.common.bookNow}
           </Link>

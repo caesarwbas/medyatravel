@@ -20,5 +20,5 @@ export interface GalleryImage {
 
 export interface NavLink {
   label: LocalizedText;
-  href: string;
+  href: LocalizedText;
 }

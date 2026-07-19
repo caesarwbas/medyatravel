@@ -1,5 +1,5 @@
 import SitePage from "@/components/SitePage";
 
 export default function Home() {
-  return <SitePage locale="de" />;
+  return <SitePage locale="en" />;
 }

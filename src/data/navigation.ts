@@ -1,44 +1,34 @@
 import type { NavLink } from "@/types";
+import {
+  destinationsPaths,
+  journeyPaths,
+  localizeAnchor,
+  routeLabels,
+} from "@/data/routes";
 
 export const navLinks: NavLink[] = [
   {
-    label: {
-      en: "Destinations",
-      de: "Reiseziele",
-      ar: "الوجهات",
-    },
-    href: "#destinations",
+    label: routeLabels.destinations,
+    href: destinationsPaths,
   },
   {
-    label: {
-      en: "Journeys",
-      de: "Reisen",
-      ar: "الرحلات",
-    },
-    href: "#journeys",
+    label: routeLabels.journey,
+    href: journeyPaths,
   },
   {
-    label: {
-      en: "About Us",
-      de: "Über uns",
-      ar: "من نحن",
+    label: routeLabels.catalogue,
+    href: {
+      en: localizeAnchor("en", "#catalogue"),
+      de: localizeAnchor("de", "#catalogue"),
+      ar: localizeAnchor("ar", "#catalogue"),
     },
-    href: "#about",
   },
   {
-    label: {
-      en: "Gallery",
-      de: "Galerie",
-      ar: "المعرض",
+    label: routeLabels.about,
+    href: {
+      en: localizeAnchor("en", "#about"),
+      de: localizeAnchor("de", "#about"),
+      ar: localizeAnchor("ar", "#about"),
     },
-    href: "#gallery",
-  },
-  {
-    label: {
-      en: "Contact",
-      de: "Kontakt",
-      ar: "تواصل معنا",
-    },
-    href: "#contact",
   },
 ];

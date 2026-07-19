@@ -10,7 +10,7 @@ import {
   destinationFeatureImages,
   syriaPhotoCategories,
 } from "@/data/syria-gallery";
-import type { Locale } from "@/types/index";
+import type { Locale } from "@/types";
 
 interface DestinationsPageProps {
   locale: Locale;
