@@ -7,16 +7,16 @@ import RequestForm from "@/components/RequestForm";
 import SocialDock from "@/components/SocialDock";
 import TrustSection from "@/components/TrustSection";
 import { assets } from "@/data/assets";
-import { spainIncludedServices, spainJourneyDays, spainJourneyGallery, spainJourneyMapUrl, spainJourneySummary } from "@/data/spain-journey";
+import { spainIncludedServices, spainJourneyDays, spainJourneySummary } from "@/data/spain-journey";
 import { spainJourneyPaths } from "@/data/routes";
 import type { Locale } from "@/types";
 
 interface Props { locale: Locale; }
 
 const copy = {
-  en: { eyebrow: "Current journey", overview: "Journey overview", itinerary: "Day-by-day itinerary", included: "Package includes", request: "Request this journey", map: "View route map", gallery: "Journey gallery" },
-  de: { eyebrow: "Aktuelle Reise", overview: "Reiseübersicht", itinerary: "Reiseverlauf Tag für Tag", included: "Im Paket enthalten", request: "Diese Reise anfragen", map: "Reiseroute ansehen", gallery: "Reisegalerie" },
-  ar: { eyebrow: "الرحلات الحالية", overview: "نظرة عامة على الرحلة", itinerary: "البرنامج يومًا بيوم", included: "تشمل الباقة", request: "اطلب هذه الرحلة", map: "عرض خريطة مسار الرحلة", gallery: "ألبوم الرحلة" },
+  en: { eyebrow: "Current journey", overview: "Journey overview", itinerary: "Day-by-day itinerary", included: "Package includes", request: "Request this journey" },
+  de: { eyebrow: "Aktuelle Reise", overview: "Reiseübersicht", itinerary: "Reiseverlauf Tag für Tag", included: "Im Paket enthalten", request: "Diese Reise anfragen" },
+  ar: { eyebrow: "الرحلات الحالية", overview: "نظرة عامة على الرحلة", itinerary: "البرنامج يومًا بيوم", included: "تشمل الباقة", request: "اطلب هذه الرحلة" },
 } as const;
 
 function BrandedImage({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
@@ -51,10 +51,7 @@ export default function SpainJourneyPage({ locale }: Props) {
               <span className="border border-white/20 bg-brand/55 px-5 py-3 text-xs font-semibold text-white backdrop-blur-md">{spainJourneySummary.duration[locale]}</span>
               <span className="border border-gold/60 bg-brand/55 px-5 py-3 text-xs font-semibold text-gold backdrop-blur-md">{spainJourneySummary.departure[locale]}</span>
             </div>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link href="#request" className="inline-flex min-h-13 items-center justify-center bg-gold px-7 text-xs font-semibold uppercase tracking-[0.18em] text-brand transition hover:bg-bronze">{text.request}</Link>
-              <a href={spainJourneyMapUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-13 items-center justify-center border border-gold/70 bg-brand/55 px-7 text-xs font-semibold uppercase tracking-[0.18em] text-gold backdrop-blur-md transition hover:bg-gold hover:text-brand">{text.map}</a>
-            </div>
+            <Link href="#request" className="mt-9 inline-flex min-h-13 items-center justify-center bg-gold px-7 text-xs font-semibold uppercase tracking-[0.18em] text-brand transition hover:bg-bronze">{text.request}</Link>
           </div>
         </header>
 
@@ -64,29 +61,6 @@ export default function SpainJourneyPage({ locale }: Props) {
           <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-10">
             <p className="text-xs font-semibold uppercase tracking-[0.26em] text-gold">{text.overview}</p>
             <p className="mt-6 font-serif text-2xl leading-relaxed text-white sm:text-3xl">{spainJourneySummary.overview[locale]}</p>
-          </div>
-        </section>
-
-        <section className="border-b border-white/10 bg-brand py-20 sm:py-24">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
-            <div className="flex flex-wrap items-end justify-between gap-5">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.26em] text-gold">{text.gallery}</p>
-                <h2 className="mt-4 font-serif text-4xl text-white sm:text-5xl">{spainJourneySummary.title[locale]}</h2>
-              </div>
-              <a href={spainJourneyMapUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center border border-gold/60 px-6 text-xs font-semibold uppercase tracking-[0.16em] text-gold transition hover:bg-gold hover:text-brand">{text.map}</a>
-            </div>
-
-            <div className="mt-10 columns-1 gap-5 sm:columns-2 lg:columns-3">
-              {spainJourneyGallery.map((src, index) => (
-                <figure key={src} className="group relative mb-5 break-inside-avoid overflow-hidden border border-white/10 bg-charcoal">
-                  <div className="relative min-h-[260px] sm:min-h-[320px]">
-                    <BrandedImage src={src} alt={`${spainJourneySummary.title[locale]} ${index + 1}`} />
-                    <div className="absolute inset-0 ring-1 ring-inset ring-white/5" />
-                  </div>
-                </figure>
-              ))}
-            </div>
           </div>
         </section>
 
