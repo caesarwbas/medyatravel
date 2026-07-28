@@ -1,0 +1,132 @@
+{
+  "app": {
+    "[project]/src/app/_not-found/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/ar/destinations/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/ar/journeys/essential-spain/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/ar/journeys/first-journey-to-syria/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/ar/legal/cookies/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/ar/legal/imprint/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/ar/legal/privacy/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/ar/legal/terms/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/ar/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/de/agb/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/de/cookie-einstellungen/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/de/datenschutz/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/de/impressum/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/de/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/de/reisen/erste-syrienreise/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/de/reisen/essentielles-spanien/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/de/reiseziele/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/en/destinations/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/en/journeys/essential-spain/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/en/journeys/first-journey-to-syria/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/en/legal/cookies/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/en/legal/imprint/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/en/legal/privacy/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/en/legal/terms/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ],
+    "[project]/src/app/page": [
+      "static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/744885950b1fe0ff-s.p.30d2r2x65bwdm.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}
