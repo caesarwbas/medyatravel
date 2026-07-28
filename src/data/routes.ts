@@ -18,6 +18,13 @@ export const journeyPaths: Record<Locale, string> = {
   ar: "/ar/journeys/first-journey-to-syria",
 };
 
+
+export const spainJourneyPaths: Record<Locale, string> = {
+  en: "/en/journeys/essential-spain",
+  de: "/de/reisen/essentielles-spanien",
+  ar: "/ar/journeys/essential-spain",
+};
+
 export const brochurePaths: Record<Locale, string> = {
   en: "/brochures/medya-travel-syria-journey-en.pdf",
   de: "/brochures/medya-travel-syria-journey-de.pdf",

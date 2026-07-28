@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { assets } from "@/data/assets";
-import { brochurePaths, journeyPaths } from "@/data/routes";
+import { brochurePaths, journeyPaths, spainJourneyPaths } from "@/data/routes";
 import { siteTranslations } from "@/data/translations";
 import type { Locale } from "@/types";
 
@@ -31,6 +31,38 @@ export default function CatalogueSection({ locale }: CatalogueSectionProps) {
               {copy.itinerariesButton}
             </Link>
           </div>
+        </div>
+
+        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+          <Link href={journeyPaths[locale]} className="group overflow-hidden border border-white/10 bg-charcoal">
+            <div className="relative min-h-72 overflow-hidden">
+              <Image src="/syria/palmyra-columns.webp" alt={locale === "ar" ? "الرحلة الأولى إلى سوريا" : locale === "de" ? "Erste Syrienreise" : "First Journey to Syria"} fill quality={92} sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand via-brand/15 to-transparent" />
+              <div className="absolute right-5 top-5 h-16 w-32">
+                <Image src={assets.logoSlogan} alt="MEDYA TRAVEL" fill sizes="128px" className="object-contain drop-shadow-[0_3px_8px_rgba(0,0,0,0.75)]" />
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-7">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">{locale === "ar" ? "الرحلات الحالية" : locale === "de" ? "Aktuelle Reise" : "Current journey"}</p>
+                <h3 className="mt-3 font-serif text-3xl text-white">{locale === "ar" ? "الرحلة الأولى إلى سوريا" : locale === "de" ? "Erste Syrienreise" : "First Journey to Syria"}</h3>
+                <p className="mt-3 text-sm text-white/70">{locale === "ar" ? "7 أيام / 6 ليالٍ" : locale === "de" ? "7 Tage / 6 Nächte" : "7 Days / 6 Nights"}</p>
+              </div>
+            </div>
+          </Link>
+
+          <Link href={spainJourneyPaths[locale]} className="group overflow-hidden border border-white/10 bg-charcoal">
+            <div className="relative min-h-72 overflow-hidden">
+              <Image src="https://iberica-travel.com/files/travel%20packages%202018/3.%20Andalusia%20and%20Levante/CityofArtsandSciencesValenciaTitle.jpg" alt={locale === "ar" ? "إسبانيا الأساسية" : locale === "de" ? "Essentielles Spanien" : "Essential Spain"} fill quality={92} sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand via-brand/15 to-transparent" />
+              <div className="absolute right-5 top-5 h-16 w-32">
+                <Image src={assets.logoSlogan} alt="MEDYA TRAVEL" fill sizes="128px" className="object-contain drop-shadow-[0_3px_8px_rgba(0,0,0,0.75)]" />
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-7">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">{locale === "ar" ? "الرحلات الحالية" : locale === "de" ? "Aktuelle Reise" : "Current journey"}</p>
+                <h3 className="mt-3 font-serif text-3xl text-white">{locale === "ar" ? "إسبانيا الأساسية" : locale === "de" ? "Essentielles Spanien" : "Essential Spain"}</h3>
+                <p className="mt-3 text-sm text-white/70">{locale === "ar" ? "6 أيام / 5 ليالٍ" : locale === "de" ? "6 Tage / 5 Nächte" : "6 Days / 5 Nights"}</p>
+              </div>
+            </div>
+          </Link>
         </div>
 
         <div className="mx-auto mt-12 flex max-w-lg flex-col items-center gap-6 rounded-sm border border-white/10 bg-charcoal/70 p-6 backdrop-blur-sm sm:mt-16 sm:flex-row sm:gap-8 sm:p-8">
