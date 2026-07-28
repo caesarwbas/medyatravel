@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { destinationsPaths, journeyPaths, legalPaths } from "@/data/routes";
+import { destinationsPaths, journeyPaths, legalPaths, spainJourneyPaths } from "@/data/routes";
 import type { Locale } from "@/types";
 
 const baseUrl = "https://medyatravel.de";
@@ -44,6 +44,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const journeyAlternates = Object.fromEntries(
     locales.map((locale) => [locale, absolute(journeyPaths[locale])]),
   );
+  const spainJourneyAlternates = Object.fromEntries(
+    locales.map((locale) => [locale, absolute(spainJourneyPaths[locale])]),
+  );
 
   for (const locale of locales) {
     entries.push({
@@ -59,6 +62,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
       alternates: { languages: journeyAlternates },
+    });
+    entries.push({
+      url: absolute(spainJourneyPaths[locale]),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+      alternates: { languages: spainJourneyAlternates },
     });
 
     for (const path of Object.values(legalPaths[locale])) {
