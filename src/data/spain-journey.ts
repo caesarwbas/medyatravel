@@ -23,6 +23,25 @@ export const spainJourneySummary = {
   },
 } satisfies Record<string, LocalizedText>;
 
+
+export const spainJourneyMapUrl = "https://www.scribblemaps.com/maps/view/3/qcRyf3sTL4";
+
+export const spainJourneyGallery = [
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234886/images_16_aaffwk.jpg",
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234886/480451719_k5njnl.jpg",
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234886/Mediterrane_zcgy3l.jpg",
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234886/74_iy8bfr.jpg",
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234887/1x_mcimuz.jpg",
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234886/bc_yl8twt.jpg",
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234887/image_processing20190907-4-3e3iwx_u90sfd.jpg",
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234887/images_15_lurwdx.jpg",
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234887/istockphoto-1344545914-612x612_dtlkya.jpg",
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234888/036-Basilica-of-Our-Lady-of-the-Pillar-and-Ebor-River-in-the-Evening-Zaragoza-Aragon-Spain_gbyi3d.jpg",
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234888/2-weeks-traveling-spain-madrid-cordoba-seville-granada-and-v0-v98wsac6va7a1_kmiuhj.jpg",
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234888/a85927d6f7b866ee638f7d419c3fe294-1643363128_xekca5.jpg",
+  "https://res.cloudinary.com/lclxcm8g/image/upload/v1785234888/58_ri3rfy.jpg",
+] as const;
+
 export const spainJourneyDays: SpainJourneyDay[] = [
   {
     day: 1,
