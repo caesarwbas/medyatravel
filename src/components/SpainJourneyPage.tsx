@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import RequestForm from "@/components/RequestForm";
 import SocialDock from "@/components/SocialDock";
 import TrustSection from "@/components/TrustSection";
+import { assets } from "@/data/assets";
 import { spainIncludedServices, spainJourneyDays, spainJourneyGallery, spainJourneyMapUrl, spainJourneySummary } from "@/data/spain-journey";
 import { spainJourneyPaths } from "@/data/routes";
 import type { Locale } from "@/types";
@@ -20,17 +21,12 @@ const copy = {
 
 function BrandedImage({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
   return (
-    <div className="relative h-full w-full overflow-hidden">
-      <Image src={src} alt={alt} fill priority={priority} quality={92} sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
-      <Image
-        src="/images/medya-logo-transparent.png"
-        alt="MEDYA Travel"
-        width={150}
-        height={150}
-        className="pointer-events-none absolute right-5 top-5 z-20 h-auto w-20 object-contain drop-shadow-[0_4px_14px_rgba(0,0,0,0.45)] sm:w-24"
-        unoptimized
-      />
-    </div>
+    <>
+      <Image src={src} alt={alt} fill priority={priority} unoptimized sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+      <div className="pointer-events-none absolute right-4 top-4 h-16 w-32 sm:right-6 sm:top-6 sm:h-20 sm:w-40">
+        <Image src={assets.logoSlogan} alt="MEDYA TRAVEL" fill unoptimized sizes="160px" className="object-contain drop-shadow-[0_3px_8px_rgba(0,0,0,0.7)]" />
+      </div>
+    </>
   );
 }
 
