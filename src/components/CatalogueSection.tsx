@@ -9,8 +9,51 @@ interface CatalogueSectionProps {
   locale: Locale;
 }
 
+interface SpainBrochure {
+  code: string;
+  title: Record<Locale, string>;
+  href: Record<Locale, string>;
+}
+
+const spainBrochureCopy: Record<Locale, { title: string; action: string }> = {
+  en: { title: "Spain Brochures", action: "Open brochure" },
+  de: { title: "Spanien-Broschüren", action: "Broschüre öffnen" },
+  ar: { title: "بروشورات إسبانيا", action: "فتح البروشور" },
+};
+
+const spainBrochures: SpainBrochure[] = [
+  {
+    code: "M-101",
+    title: { en: "Essential Spain", de: "Spanien kompakt", ar: "إسبانيا الأساسية" },
+    href: {
+      en: "/brochures/medya-travel-essential-spain-en.pdf",
+      de: "/brochures/medya-travel-essential-spain-de.pdf",
+      ar: "/brochures/medya-travel-essential-spain-ar.pdf",
+    },
+  },
+  {
+    code: "M-102",
+    title: { en: "Andalusian Highlights", de: "Höhepunkte Andalusiens", ar: "أبرز معالم الأندلس" },
+    href: {
+      en: "/brochures/medya-travel-andalusian-highlights-en.pdf",
+      de: "/brochures/medya-travel-andalusian-highlights-de.pdf",
+      ar: "/brochures/medya-travel-andalusian-highlights-ar.pdf",
+    },
+  },
+  {
+    code: "M-103",
+    title: { en: "Southern Spain & Coast", de: "Südspanien und Küste", ar: "جنوب إسبانيا والساحل" },
+    href: {
+      en: "/brochures/medya-travel-southern-spain-coast-en.pdf",
+      de: "/brochures/medya-travel-southern-spain-coast-de.pdf",
+      ar: "/brochures/medya-travel-southern-spain-coast-ar.pdf",
+    },
+  },
+];
+
 export default function CatalogueSection({ locale }: CatalogueSectionProps) {
   const copy = siteTranslations[locale].catalogue;
+  const brochureCopy = spainBrochureCopy[locale];
 
   return (
     <section id="catalogue" className="relative overflow-hidden bg-brand py-20 sm:py-24 lg:py-32">
@@ -63,6 +106,25 @@ export default function CatalogueSection({ locale }: CatalogueSectionProps) {
               </div>
             </div>
           </Link>
+        </div>
+
+        <div className="mt-12 border-t border-white/10 pt-10 sm:mt-16 sm:pt-12">
+          <h3 className="text-center font-serif text-3xl text-white sm:text-4xl">{brochureCopy.title}</h3>
+          <div className="mt-7 grid gap-4 md:grid-cols-3">
+            {spainBrochures.map((brochure) => (
+              <a
+                key={brochure.code}
+                href={brochure.href[locale]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group border border-white/10 bg-charcoal/80 p-6 transition hover:border-gold/60"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">{brochure.code}</p>
+                <h4 className="mt-3 font-serif text-2xl text-white">{brochure.title[locale]}</h4>
+                <p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-white/60 transition group-hover:text-gold">{brochureCopy.action}</p>
+              </a>
+            ))}
+          </div>
         </div>
 
         <div className="mx-auto mt-12 flex max-w-lg flex-col items-center gap-6 rounded-sm border border-white/10 bg-charcoal/70 p-6 backdrop-blur-sm sm:mt-16 sm:flex-row sm:gap-8 sm:p-8">
