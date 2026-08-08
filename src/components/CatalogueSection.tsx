@@ -13,6 +13,7 @@ interface SpainBrochure {
   code: string;
   title: Record<Locale, string>;
   href: Record<Locale, string>;
+  cover: Record<Locale, string>;
 }
 
 const spainBrochureCopy: Record<Locale, { title: string; action: string }> = {
@@ -30,6 +31,11 @@ const spainBrochures: SpainBrochure[] = [
       de: "/brochures/medya-travel-essential-spain-de.pdf",
       ar: "/brochures/medya-travel-essential-spain-ar.pdf",
     },
+    cover: {
+      en: "/brochures/covers/m101-en.webp",
+      de: "/brochures/covers/m101-de.webp",
+      ar: "/brochures/covers/m101-ar.webp",
+    },
   },
   {
     code: "M-102",
@@ -39,6 +45,11 @@ const spainBrochures: SpainBrochure[] = [
       de: "/brochures/medya-travel-andalusian-highlights-de.pdf",
       ar: "/brochures/medya-travel-andalusian-highlights-ar.pdf",
     },
+    cover: {
+      en: "/brochures/covers/m102-en.webp",
+      de: "/brochures/covers/m102-de.webp",
+      ar: "/brochures/covers/m102-ar.webp",
+    },
   },
   {
     code: "M-103",
@@ -47,6 +58,11 @@ const spainBrochures: SpainBrochure[] = [
       en: "/brochures/medya-travel-southern-spain-coast-en.pdf",
       de: "/brochures/medya-travel-southern-spain-coast-de.pdf",
       ar: "/brochures/medya-travel-southern-spain-coast-ar.pdf",
+    },
+    cover: {
+      en: "/brochures/covers/m103-en.webp",
+      de: "/brochures/covers/m103-de.webp",
+      ar: "/brochures/covers/m103-ar.webp",
     },
   },
 ];
@@ -117,11 +133,23 @@ export default function CatalogueSection({ locale }: CatalogueSectionProps) {
                 href={brochure.href[locale]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group border border-white/10 bg-charcoal/80 p-6 transition hover:border-gold/60"
+                className="group overflow-hidden border border-white/10 bg-charcoal/80 transition duration-300 hover:-translate-y-1 hover:border-gold/60"
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">{brochure.code}</p>
-                <h4 className="mt-3 font-serif text-2xl text-white">{brochure.title[locale]}</h4>
-                <p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-white/60 transition group-hover:text-gold">{brochureCopy.action}</p>
+                <div className="relative aspect-square overflow-hidden bg-black/30">
+                  <Image
+                    src={brochure.cover[locale]}
+                    alt={`${brochure.title[locale]} — ${brochure.code}`}
+                    fill
+                    sizes="(max-width: 767px) 100vw, 33vw"
+                    className="object-cover transition duration-700 group-hover:scale-[1.035]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand/55 via-transparent to-transparent" />
+                </div>
+                <div className="p-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">{brochure.code}</p>
+                  <h4 className="mt-3 font-serif text-2xl text-white">{brochure.title[locale]}</h4>
+                  <p className="mt-5 text-xs font-semibold uppercase tracking-[0.16em] text-white/60 transition group-hover:text-gold">{brochureCopy.action}</p>
+                </div>
               </a>
             ))}
           </div>
