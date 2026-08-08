@@ -598,7 +598,13 @@ function applyModuleFactoryName(factory) {
 async function externalImport(id) {
     let raw;
     try {
-        raw = await import(id);
+        switch (id) {
+  case "next/dist/compiled/@vercel/og/index.node.js":
+    raw = await import("next/dist/compiled/@vercel/og/index.edge.js");
+    break;
+  default:
+    raw = await import(id);
+};
     } catch (err) {
         // TODO(alexkirsz) This can happen when a client-side module tries to load
         // an external module we don't provide a shim for (e.g. querystring, url).
@@ -729,7 +735,7 @@ function loadRuntimeChunkPath(sourcePath, chunkPath) {
     }
     try {
         const resolved = path.resolve(RUNTIME_ROOT, chunkPath);
-        const chunkModules = require(resolved);
+        const chunkModules = requireChunk(chunkPath);
         installCompressedModuleFactories(chunkModules, 0, moduleFactories);
         loadedChunks.add(chunkPath);
     } catch (cause) {
@@ -758,7 +764,7 @@ function loadChunkAsync(chunkData) {
             const resolved = path.resolve(RUNTIME_ROOT, chunkPath);
             // TODO: consider switching to `import()` to enable concurrent chunk loading and async file io
             // However this is incompatible with hot reloading (since `import` doesn't use the require cache)
-            const chunkModules = require(resolved);
+            const chunkModules = requireChunk(chunkPath);
             installCompressedModuleFactories(chunkModules, 0, moduleFactories);
             entry = loadedChunk;
         } catch (cause) {
@@ -781,14 +787,14 @@ function loadChunkAsyncByUrl(chunkUrl) {
     return loadChunkAsync.call(this, path1);
 }
 contextPrototype.L = loadChunkAsyncByUrl;
-function loadWebAssembly(chunkPath, _edgeModule, imports) {
-    const resolved = path.resolve(RUNTIME_ROOT, chunkPath);
-    return instantiateWebAssemblyFromPath(resolved, imports);
+async function loadWebAssembly(chunkPath, _edgeModule, imports) {
+  const mod = await loadWasmChunk(chunkPath);
+  const { exports } = await WebAssembly.instantiate(mod, imports);
+  return exports;
 }
 contextPrototype.w = loadWebAssembly;
 function loadWebAssemblyModule(chunkPath, _edgeModule) {
-    const resolved = path.resolve(RUNTIME_ROOT, chunkPath);
-    return compileWebAssemblyFromPath(resolved);
+  return loadWasmChunk(chunkPath);
 }
 contextPrototype.u = loadWebAssemblyModule;
 /**
@@ -901,3 +907,142 @@ module.exports = (sourcePath)=>({
 
 
 //# sourceMappingURL=%5Bturbopack%5D_runtime.js.map
+
+  function requireChunk(chunkPath) {
+    switch(chunkPath) {
+      case "server/chunks/ssr/[root-of-the-server]__01laxqk._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__01laxqk._.js");
+      case "server/chunks/ssr/[root-of-the-server]__06g_c6j._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__06g_c6j._.js");
+      case "server/chunks/ssr/[root-of-the-server]__0b1za6e._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0b1za6e._.js");
+      case "server/chunks/ssr/[root-of-the-server]__0kl59ms._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0kl59ms._.js");
+      case "server/chunks/ssr/[root-of-the-server]__0oan1-q._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0oan1-q._.js");
+      case "server/chunks/ssr/[turbopack]_runtime.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[turbopack]_runtime.js");
+      case "server/chunks/ssr/_next-internal_server_app__not-found_page_actions_0pt47yr.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__not-found_page_actions_0pt47yr.js");
+      case "server/chunks/ssr/node_modules_0h91jdk._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_0h91jdk._.js");
+      case "server/chunks/ssr/node_modules_next_dist_0xaccoz._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_0xaccoz._.js");
+      case "server/chunks/ssr/node_modules_next_dist_1jvd6ht._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_1jvd6ht._.js");
+      case "server/chunks/ssr/node_modules_next_dist_client_components_0wpq8j3._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_0wpq8j3._.js");
+      case "server/chunks/ssr/node_modules_next_dist_client_components_builtin_forbidden_0symwr9.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_forbidden_0symwr9.js");
+      case "server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_0l_sp0x.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_0l_sp0x.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0zlx4og.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0zlx4og.js");
+      case "server/chunks/[externals]_next_dist_0iuj5m_._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/[externals]_next_dist_0iuj5m_._.js");
+      case "server/chunks/[root-of-the-server]__0xuaoik._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__0xuaoik._.js");
+      case "server/chunks/[turbopack]_runtime.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/[turbopack]_runtime.js");
+      case "server/chunks/_next-internal_server_app_apple-icon_png_route_actions_0jcl8au.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_apple-icon_png_route_actions_0jcl8au.js");
+      case "server/chunks/node_modules_next_dist_esm_build_templates_app-route_144wghl.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/node_modules_next_dist_esm_build_templates_app-route_144wghl.js");
+      case "server/chunks/ssr/[root-of-the-server]__1p017j9._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1p017j9._.js");
+      case "server/chunks/ssr/_0353eph._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_0353eph._.js");
+      case "server/chunks/ssr/_0t8wi9x._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_0t8wi9x._.js");
+      case "server/chunks/ssr/_0z3sot-._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_0z3sot-._.js");
+      case "server/chunks/ssr/_next-internal_server_app_ar_destinations_page_actions_1r61our.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_ar_destinations_page_actions_1r61our.js");
+      case "server/chunks/ssr/node_modules_@swc_helpers_cjs__interop_require_default_cjs_1ztp13a._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_@swc_helpers_cjs__interop_require_default_cjs_1ztp13a._.js");
+      case "server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_0-o-goa.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_0-o-goa.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_20wk-g7.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_20wk-g7.js");
+      case "server/chunks/ssr/src_app_ar_layout_tsx_10fboss._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/src_app_ar_layout_tsx_10fboss._.js");
+      case "server/chunks/ssr/[root-of-the-server]__1d2024z._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1d2024z._.js");
+      case "server/chunks/ssr/_0qi7sy7._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_0qi7sy7._.js");
+      case "server/chunks/ssr/_1ejju1z._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_1ejju1z._.js");
+      case "server/chunks/ssr/_next-internal_server_app_ar_journeys_essential-spain_page_actions_1puld2v.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_ar_journeys_essential-spain_page_actions_1puld2v.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0ft2hfp.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0ft2hfp.js");
+      case "server/chunks/ssr/1oeh_server_app_ar_journeys_first-journey-to-syria_page_actions_0r2qkyq.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/1oeh_server_app_ar_journeys_first-journey-to-syria_page_actions_0r2qkyq.js");
+      case "server/chunks/ssr/[root-of-the-server]__1qv8ye2._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1qv8ye2._.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1u-t6wb.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1u-t6wb.js");
+      case "server/chunks/ssr/[root-of-the-server]__0a2m7sy._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0a2m7sy._.js");
+      case "server/chunks/ssr/_13qfzur._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_13qfzur._.js");
+      case "server/chunks/ssr/_1j9zemp._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_1j9zemp._.js");
+      case "server/chunks/ssr/_next-internal_server_app_ar_legal_cookies_page_actions_1mwz_6_.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_ar_legal_cookies_page_actions_1mwz_6_.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0caj7-1.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0caj7-1.js");
+      case "server/chunks/ssr/src_components_LegalPage_tsx_0bc7sjk._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/src_components_LegalPage_tsx_0bc7sjk._.js");
+      case "server/chunks/ssr/[root-of-the-server]__1kasbw6._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1kasbw6._.js");
+      case "server/chunks/ssr/_next-internal_server_app_ar_legal_imprint_page_actions_0rlwl3j.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_ar_legal_imprint_page_actions_0rlwl3j.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_15u0vi1.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_15u0vi1.js");
+      case "server/chunks/ssr/[root-of-the-server]__0-se5hd._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0-se5hd._.js");
+      case "server/chunks/ssr/_next-internal_server_app_ar_legal_privacy_page_actions_1r9bb7_.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_ar_legal_privacy_page_actions_1r9bb7_.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0sa_2q1.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0sa_2q1.js");
+      case "server/chunks/ssr/[root-of-the-server]__10-4ap-._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__10-4ap-._.js");
+      case "server/chunks/ssr/_next-internal_server_app_ar_legal_terms_page_actions_20niw8s.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_ar_legal_terms_page_actions_20niw8s.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0tt79ss.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0tt79ss.js");
+      case "server/chunks/ssr/[root-of-the-server]__173c8uf._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__173c8uf._.js");
+      case "server/chunks/ssr/_07wi9v7._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_07wi9v7._.js");
+      case "server/chunks/ssr/_1iybo8e._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_1iybo8e._.js");
+      case "server/chunks/ssr/_next-internal_server_app_ar_page_actions_19a12ew.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_ar_page_actions_19a12ew.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0xss-y-.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0xss-y-.js");
+      case "server/chunks/ssr/src_0vhzia8._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/src_0vhzia8._.js");
+      case "server/chunks/ssr/src_components_HeroSection_tsx_1l2trij._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/src_components_HeroSection_tsx_1l2trij._.js");
+      case "server/chunks/ssr/[root-of-the-server]__1r6z7zz._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1r6z7zz._.js");
+      case "server/chunks/ssr/_next-internal_server_app_de_agb_page_actions_01gguue.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_de_agb_page_actions_01gguue.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_15pwy7s.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_15pwy7s.js");
+      case "server/chunks/ssr/src_app_de_layout_tsx_0jcs3zx._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/src_app_de_layout_tsx_0jcs3zx._.js");
+      case "server/chunks/ssr/[root-of-the-server]__0rg-qrs._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0rg-qrs._.js");
+      case "server/chunks/ssr/_next-internal_server_app_de_cookie-einstellungen_page_actions_0e385al.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_de_cookie-einstellungen_page_actions_0e385al.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1-k_wcm.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1-k_wcm.js");
+      case "server/chunks/ssr/[root-of-the-server]__0l5bzwe._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0l5bzwe._.js");
+      case "server/chunks/ssr/_next-internal_server_app_de_datenschutz_page_actions_1ibej51.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_de_datenschutz_page_actions_1ibej51.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_16ozdri.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_16ozdri.js");
+      case "server/chunks/ssr/[root-of-the-server]__1eb8_sp._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1eb8_sp._.js");
+      case "server/chunks/ssr/_next-internal_server_app_de_impressum_page_actions_1d2kgid.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_de_impressum_page_actions_1d2kgid.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1e1krtl.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1e1krtl.js");
+      case "server/chunks/ssr/[root-of-the-server]__0fql_gj._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0fql_gj._.js");
+      case "server/chunks/ssr/_next-internal_server_app_de_page_actions_0g5xoy4.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_de_page_actions_0g5xoy4.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0tpc908.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0tpc908.js");
+      case "server/chunks/ssr/[root-of-the-server]__1qu8yof._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1qu8yof._.js");
+      case "server/chunks/ssr/_next-internal_server_app_de_reisen_erste-syrienreise_page_actions_1rpaus4.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_de_reisen_erste-syrienreise_page_actions_1rpaus4.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_13z91qz.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_13z91qz.js");
+      case "server/chunks/ssr/[root-of-the-server]__07alo-u._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__07alo-u._.js");
+      case "server/chunks/ssr/_next-internal_server_app_de_reisen_essentielles-spanien_page_actions_0lwl5w-.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_de_reisen_essentielles-spanien_page_actions_0lwl5w-.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1nongow.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1nongow.js");
+      case "server/chunks/ssr/[root-of-the-server]__1f6ge2x._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1f6ge2x._.js");
+      case "server/chunks/ssr/_next-internal_server_app_de_reiseziele_page_actions_0kol3c6.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_de_reiseziele_page_actions_0kol3c6.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0322c_l.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0322c_l.js");
+      case "server/chunks/ssr/[root-of-the-server]__13qp4fj._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__13qp4fj._.js");
+      case "server/chunks/ssr/_next-internal_server_app_en_destinations_page_actions_08t581o.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_en_destinations_page_actions_08t581o.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1js82jt.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1js82jt.js");
+      case "server/chunks/ssr/[root-of-the-server]__0_ski-5._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0_ski-5._.js");
+      case "server/chunks/ssr/_next-internal_server_app_en_journeys_essential-spain_page_actions_000upe8.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_en_journeys_essential-spain_page_actions_000upe8.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_17rafba.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_17rafba.js");
+      case "server/chunks/ssr/1oeh_server_app_en_journeys_first-journey-to-syria_page_actions_20tiyfu.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/1oeh_server_app_en_journeys_first-journey-to-syria_page_actions_20tiyfu.js");
+      case "server/chunks/ssr/[root-of-the-server]__1i1aqxh._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1i1aqxh._.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0e6rk-z.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0e6rk-z.js");
+      case "server/chunks/ssr/[root-of-the-server]__02zgfot._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__02zgfot._.js");
+      case "server/chunks/ssr/_next-internal_server_app_en_legal_cookies_page_actions_0170_l6.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_en_legal_cookies_page_actions_0170_l6.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_20hvzia.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_20hvzia.js");
+      case "server/chunks/ssr/[root-of-the-server]__0pr5vhz._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0pr5vhz._.js");
+      case "server/chunks/ssr/_next-internal_server_app_en_legal_imprint_page_actions_0gat8x7.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_en_legal_imprint_page_actions_0gat8x7.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_161hc7x.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_161hc7x.js");
+      case "server/chunks/ssr/[root-of-the-server]__1-tzyh4._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1-tzyh4._.js");
+      case "server/chunks/ssr/_next-internal_server_app_en_legal_privacy_page_actions_14cxluk.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_en_legal_privacy_page_actions_14cxluk.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1wyzayu.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1wyzayu.js");
+      case "server/chunks/ssr/[root-of-the-server]__0m4rdvb._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__0m4rdvb._.js");
+      case "server/chunks/ssr/_next-internal_server_app_en_legal_terms_page_actions_05npv5_.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_en_legal_terms_page_actions_05npv5_.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1c3p_jl.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_1c3p_jl.js");
+      case "server/chunks/_next-internal_server_app_icon_png_route_actions_1-lsc8h.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_icon_png_route_actions_1-lsc8h.js");
+      case "server/chunks/node_modules_next_dist_esm_build_templates_app-route_0nojrj_.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/node_modules_next_dist_esm_build_templates_app-route_0nojrj_.js");
+      case "server/chunks/[root-of-the-server]__1n_futf._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__1n_futf._.js");
+      case "server/chunks/_next-internal_server_app_manifest_webmanifest_route_actions_08hcpz0.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_manifest_webmanifest_route_actions_08hcpz0.js");
+      case "server/chunks/_next-internal_server_app_opengraph-image_jpg_route_actions_1--jnci.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_opengraph-image_jpg_route_actions_1--jnci.js");
+      case "server/chunks/node_modules_next_dist_esm_build_templates_app-route_0dial0-.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/node_modules_next_dist_esm_build_templates_app-route_0dial0-.js");
+      case "server/chunks/ssr/[root-of-the-server]__1e1sor0._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1e1sor0._.js");
+      case "server/chunks/ssr/_next-internal_server_app_page_actions_0hhsz1j.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app_page_actions_0hhsz1j.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_06as2yp.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_06as2yp.js");
+      case "server/chunks/[root-of-the-server]__15ux_on._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__15ux_on._.js");
+      case "server/chunks/_next-internal_server_app_robots_txt_route_actions_15vc_89.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_robots_txt_route_actions_15vc_89.js");
+      case "server/chunks/[root-of-the-server]__0-hus-n._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/[root-of-the-server]__0-hus-n._.js");
+      case "server/chunks/_next-internal_server_app_sitemap_xml_route_actions_05l5km9.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_sitemap_xml_route_actions_05l5km9.js");
+      case "server/chunks/_next-internal_server_app_twitter-image_jpg_route_actions_0vzidai.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/_next-internal_server_app_twitter-image_jpg_route_actions_0vzidai.js");
+      case "server/chunks/node_modules_next_dist_esm_build_templates_app-route_01gr8vf.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/node_modules_next_dist_esm_build_templates_app-route_01gr8vf.js");
+      case "server/chunks/ssr/[root-of-the-server]__1dky4g0._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1dky4g0._.js");
+      case "server/chunks/ssr/[root-of-the-server]__1s3yb8n._.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/[root-of-the-server]__1s3yb8n._.js");
+      case "server/chunks/ssr/_next-internal_server_app__global-error_page_actions_0zi5s8-.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/_next-internal_server_app__global-error_page_actions_0zi5s8-.js");
+      case "server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_19--w_z.js": return require("C:/Users/kaiser/Desktop/random files/medya travel files/website/medyatravel/.open-next/server-functions/default/.next/server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_19--w_z.js");
+      default:
+        throw new Error(`Not found ${chunkPath}`);
+    }
+  }
+
+
+  async function loadWasmChunk(chunkPath) {
+    switch (chunkPath) {
+
+      default:
+        throw new Error(`Unknown wasm chunk: ${chunkPath}`);
+    }
+  }
